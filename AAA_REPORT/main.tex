@@ -46,11 +46,16 @@ The goal of this project is to provide a solution for the swing-up of a triple a
 %---------------------------------------------------------------
 \section{Principle of the swing-up strategy}
 The main focus of this project is the swing-up phase of the pendulum. This phase consists in leading the cart of the triple pendulum from the stable equilibrium to an unstable equilibrium where all the arms are in the upright position.
-
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{principle_swingup}
+	\caption{Principle of the swing-up strategy}
+	\label{fig:swingup_strategy}
+\end{figure}
 %---------------------------------------------------------------
 %	MODELING OF THE TRIPLE PENDULUM
 %---------------------------------------------------------------
-\section{Modeling and dynamics of the triple pendulum}
+\section{Modeling of the triple pendulum}
 For the purpose of this project, it is required to develop the equations of motion of the triple pendulum system. A \emph{Lagrangian approach} is used for the modeling of the triple pendulum in the following pages.
 
 \subsection{Description of the triple pendulum}
@@ -59,7 +64,7 @@ The pendulum consists in three links which are linked together to a cart. The ca
 A schematic representation of the system is showned in Figure \ref{fig:schematic_system}. The dispositions of the positions and angles, and the coordinate system are showned in Figure \ref{fig:schematic_system} and will be used for the modeling of the pendulum. 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=12cm]{illustrations/schematic_system.eps}
+	\includegraphics[width=11cm]{illustrations/schematic_system.eps}
 	\caption{Triple arm inverted pendulum with assumed coordinate systems, dimensions and angles}
 	\label{fig:schematic_system}
 \end{figure}
@@ -69,60 +74,72 @@ Since there are four degrees of freedom for the system, there are also four gene
 	x_{cart}\to q_1, \qquad \theta_1\to q_2, \qquad \theta_2\to q_3, \qquad \theta_3\to q_4
 \]
 
-The parameters of the system are given values in Table \ref{tab:parameters_system} and will be used for every simulation of the triple pendulum.
+The parameters of the system are given values in Table \ref{tab:parameters_system} and will be used for every simulation of the triple pendulum. The moments of inertia for each link is given by:
+\[J_i = \frac{m_i\,l_i^2}{12}\]
 \begin{table}[H]
 	\centering
 	\caption{Parameters for the following simulations}
 	\label{tab:parameters_system}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
-		Parameter  & Value & Unit                     \\ \midrule
-		$m_{cart}$ & 1     & kg                       \\
-		$m_1$      & 0.5   & kg                       \\
-		$m_2$      & 0.5   & kg                       \\
-		$m_3$      & 0.5   & kg                       \\
-		$l_1$      & 0.5   & m                        \\
-		$l_2$      & 0.5   & m                        \\
-		$l_3$      & 0.5   & m                        \\
-		$g$        & 9.81  & \si{m\per\square\second} \\ \bottomrule
+		Parameter  & Value  & Unit                         \\ \midrule
+		$m_{cart}$ & 1      & kg                           \\
+		$m_1$      & 0.5    & kg                           \\
+		$m_2$      & 0.5    & kg                           \\
+		$m_3$      & 0.5    & kg                           \\
+		$l_1$      & 1      & m                            \\
+		$l_2$      & 1      & m                            \\
+		$l_3$      & 1      & m                            \\
+		$J_1$      & 0.0416 & \si{\kilo\gram\square\metre} \\
+		$J_2$      & 0.0416 & \si{\kilo\gram\square\metre} \\
+		$J_3$      & 0.0416 & \si{\kilo\gram\square\metre} \\
+		$g$        & 9.81   & \si{m\per\square\second}     \\ \bottomrule
 	\end{tabular}
 \end{table}
 
 
 \subsection{Mathematical model}
 After defining the coordinate system and the generalized coordinates, the core of the modeling takes place here. The equations of motion for the system are derived from Lagrange's equations with a generalized force:
-\begin{equation}
+\begin{equation} \label{equ:Lagrange_motions}
 	\frac{\text{d}}{\text{d}t} \left(\frac{\partial \mathcal{L}}{\partial \dot q_i}\right) - \frac{\partial \mathcal{L}}{\partial q_i} = u_i
 	\quad \text{with}\ i=1,2,3,4
 \end{equation}
-Knowing that there is only one force input to the cart, the different $u_i$ are defined such as $u_1 = u$ and $u_i = 0$ for $i=2,3,4$.
-To derive these equations of motion, the Lagrangian of the triple pendulum needs to be founded:
+Knowing that there is only one force input which exert to the cart, the different $u_i$ are defined such as $u_1 = u$ and $u_i = 0$ for $i=2,3,4$. To derive these equations of motion, the Lagrangian of the triple pendulum needs to be founded:
 \begin{equation}
 	\mathcal{L} = \mathcal{T} - \mathcal{V}
 \end{equation}
 where $\mathcal{T}$ is the kinetic energy and $\mathcal{V}$ the potential energy. Furthermore, the vectors from the origin of the coordinate system to the center of mass of each arms are defined by:
 \[
-	\mathbf{p_1} =
+	\mathbf{p}_1 =
 	\begin{bmatrix}
 		x_{cart} - l_1 \sin(\theta_1)/2 \\
 		l_1 \cos(\theta_1)/2
 	\end{bmatrix}
 \]
 \[
-	\mathbf{p_2} =
+	\mathbf{p}_2 =
 	\begin{bmatrix}
 		x_{cart} - l_1 \sin(\theta_1) - l_2 \sin(\theta_2)/2 \\
 		l_1 \cos(\theta_1) + l_2 \cos(\theta_2)/2
 	\end{bmatrix}
 \]
 \[
-	\mathbf{p_3} =
+	\mathbf{p}_3 =
 	\begin{bmatrix}
 		x_{cart} - l_1 \sin(\theta_1) - l_2 \sin(\theta_2) - l_3 \sin(\theta_3)/2 \\
 		l_1 \cos(\theta_1) + l_2 \cos(\theta_2) + l_3 \cos(\theta_3)/2
 	\end{bmatrix}
 \]
-The reasoning for deriving kinetic and potential energies is borrowed from \cite{}.
+The reasoning for deriving kinetic and potential energies is borrowed from \cite{}. The kinetic energy of the whole system is given by:
+\begin{equation}
+	\mathcal{T} = \frac{1}{2} m_{cart}\, \dot x_{cart}^2 + 
+		\frac{1}{2} \sum_{i=1}^{3} m_i \mathbf{\dot p}_i^T \mathbf{\dot p}_i + 
+		\frac{1}{2} \sum_{i=1}^{3} J_i\, \dot\theta_i^2
+\end{equation}
+The potential energy is computed with the $y$ components of each vector $\mathbf{p}_i$. Hence it is given by:
+\begin{equation}
+	\mathcal{V} = g \cdot \sum_{i=1}^3 m_i\, \mathbf{p}_{i,y}
+\end{equation}
 
 \subsection{Resolving the differential equations}
 

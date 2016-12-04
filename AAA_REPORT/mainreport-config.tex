@@ -1,0 +1,74 @@
+
+
+%-------------------------------------------
+%	CHARACTER ENCODING
+%-------------------------------------------
+\usepackage[utf8]{inputenc}
+
+%-------------------------------------------
+%	USEFUL COMMANDS
+%-------------------------------------------
+
+%-------------------------------------------
+%	PACKAGES
+%-------------------------------------------
+\usepackage[english]{babel}
+
+\usepackage{sectsty}
+
+\usepackage{titlesec}
+
+\usepackage{mathtools}
+
+%------------------------------------------------
+\usepackage{array,multirow}
+\usepackage{booktabs}
+%------------------------------------------------
+\usepackage[dvipsnames]{xcolor}
+%------------------------------------------------
+\usepackage{textcomp}
+\usepackage{enumitem}
+\usepackage[load-configurations = abbreviations]{siunitx}
+% \sisetup{locale = FR, range-phrase={ \`{a} }, list-final-separator={ et }, list-pair-separator={ et }, detect-all}
+\usepackage{float,sidecap}
+%------------------------------------------------
+\usepackage[tracking]{microtype}
+% \usepackage{mathptmx} % Corpus font
+% \usepackage{newtxtext}
+% \usepackage{newtxmath}
+\usepackage{fourier}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+\usepackage[condensed]{roboto}
+%\renewcommand{\sfdefault}{fvs} % Lato for 1st page and section titles fla
+%\linespread{1.025}
+%------------------------------------------------
+\usepackage{import}
+%\usepackage[final]{pdfpages}
+\usepackage[pdftex]{graphicx}
+
+%------------------------------------------------
+\usepackage[a4paper]{geometry}
+\usepackage[format=hang,font=small,labelfont={sf,bf},labelsep=endash]{caption}
+\geometry{top=2.54cm, bottom=2.5cm, left=2.54cm , right=2.54cm}
+%------------------------------------------------
+\usepackage[T1]{fontenc}
+%------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{\thesection.\ #1}}}
+
+\fancyhf{}
+\fancyhead[LE,RO]{}
+\fancyhead[RE,LO]{\rightmark}
+\fancyfoot[CE,CO]{}
+\fancyfoot[LE,RO]{\thepage}
+
+%------------------------------------------------
+\setlist{noitemsep}
+
+
+%------------------------------------------------
+\graphicspath{{illustrations/}{../illustrations/}}
+%\allsectionsfont{\sffamily}
+%\frenchbsetup{og = «, fg = »}
+%\urlstyle{sf}

@@ -1,0 +1,78 @@
+\usepackage{xcolor} % Required for specifying colors by name
+\definecolor{ocre}{RGB}{52,177,201} % Define the orange color used for highlighting throughout the book
+\definecolor{blackout}{RGB}{0,0,0}
+
+\usepackage{titlesec}
+% use \llap if you want to align text section with left textwidth
+\makeatletter
+\renewcommand{\@seccntformat}[1]{\textcolor{black!55}{\csname the#1\endcsname}\hspace{0.5em}}                    
+\renewcommand{\section}{\@startsection{section}{1}{\z@}
+{-2.5ex}
+{0.5ex }
+{\normalfont\Large\sffamily\bfseries}}
+
+\renewcommand{\subsection}{\@startsection {subsection}{2}{\z@}
+{-1.5ex}
+{0.5ex}
+{\large\sffamily\bfseries}}
+
+\renewcommand{\subsubsection}{\@startsection {subsubsection}{3}{\z@}
+{-2ex \@plus -0.1ex \@minus -.2ex}
+{.2ex \@plus.2ex }
+{\sffamily\bfseries}}
+
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}
+{-2ex \@plus-.2ex \@minus .2ex}
+{.1ex}
+{\sffamily\bfseries\itshape}}
+\makeatother
+
+% \titleformat{\section}
+% {\sffamily\large\bfseries\uppercase}{\thesection}{.5em}{}
+
+% \titlespacing{\section}{0pt}{1em}{0.5em}
+
+\usepackage{titletoc} % Required for manipulating the table of contents
+\contentsmargin{0cm} % Removes the default margin
+% Chapter text styling
+%\titlecontents{chapter}[1.25cm] % Indentation
+%{\addvspace{15pt}\large\sffamily\bfseries} % Spacing and font options for chapters
+%{\color{ocre!60}\contentslabel[\Large\thecontentslabel]{1.25cm}\color{ocre}} % Chapter number
+%{}  
+%{\color{ocre!60}\normalsize\sffamily\bfseries\;\titlerule*[.5pc]{.}\;\thecontentspage} % Page number
+
+% Section text styling
+%\titlecontents{section}[1.25cm] % Indentation
+%{\addvspace{5pt}\sffamily\bfseries} % Spacing and font options for sections
+%{\contentslabel[\thecontentslabel]{1.25cm}} % Section number
+%{}
+%{\sffamily\hfill\color{black}\thecontentspage} % Page number
+%[]
+\titlecontents{section}[0.5cm] % Indentation
+{\addvspace{6pt}\large\sffamily\bfseries} % Spacing and font options for chapters
+{\color{black!50}\contentslabel[\Large\thecontentslabel]{0.7cm}\color{black}} % Section number
+{}  
+{\color{black!50}\normalsize\sffamily\bfseries\;\titlerule*[.5pc]{}\;\thecontentspage} % Page number
+
+% Subsection text styling
+%\titlecontents{subsection}[1.25cm] % Indentation
+%{\addvspace{5pt}\sffamily\small} % Spacing and font options for subsections
+%{\contentslabel[\thecontentslabel]{1.25cm}} % Subsection number
+%{}
+%{\sffamily\;\titlerule*[.5pc]{.}\;\thecontentspage} % Page number
+%[]
+
+\titlecontents{subsection}[1.4cm] % Indentation
+{\addvspace{3pt}\sffamily\bfseries} % Spacing and font options for subsections
+{\color{black!50}\contentslabel[\thecontentslabel]{0.8cm}\color{black}} % Section number
+{}
+{\sffamily\bfseries\color{black!50}\;\titlerule*[.6pc]{.}\;\thecontentspage} % Page number
+[]
+
+% Subsubsection text styling
+\titlecontents{subsubsection}[2.5cm] % Indentation
+{\addvspace{1pt}\sffamily\small\bfseries} % Spacing and font options for subsubsections
+{\color{black!50}\contentslabel[\thecontentslabel]{1cm}\color{black}} % Subsubsection number
+{}
+{\sffamily\bfseries\color{black!50}\;\titlerule*[.6pc]{.}\;\thecontentspage} % Page number
+[]

@@ -1,0 +1,154 @@
+\documentclass[a4paper,12pt,twoside]{article}
+
+
+\input{mainreport-config}
+
+%-----------------------------------------------
+\input{structure}
+
+
+% Document begins here
+%-----------------------------------------------
+\begin{document}
+\renewcommand{\headheight}{14.5pt}
+\renewcommand{\tablename}{Table}
+\renewcommand{\figurename}{Figure}
+
+% Title page
+\input{title_page}
+\newpage
+% Summary
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}
+
+%---------------------------------------------------------------
+%	ABSTRACT
+%---------------------------------------------------------------
+\begin{abstract}
+The swing-up of a triple pendulum.
+In this report, the subject of the swing-up of a triple arm inverted pendulum is approached. The swing-up strategy is based on recording the motions of the triple pendulum and then replay the same movements but in the backward direction. The main focus of the report is on the modeling of the triple pendulum and the simulation of the swing-up phase by using the described strategy on MATLAB.
+
+LQR controller
+\end{abstract}
+
+%---------------------------------------------------------------
+%	INTRODUCTION
+%---------------------------------------------------------------
+\section{Introduction}\label{sec:intro} %ABSTRACT
+The swing-up of a triple arm inverted pendulum is presented. The main focus of this semester project is to simulate a strategy for the swing-up of the pendulum. It is done to study the feasability of the strategy.
+The goal of this project is to provide a solution for the swing-up of a triple arm inverted pendulum.
+
+%---------------------------------------------------------------
+%	PRINCIPLE OF THE SWING-UP STRATEGY
+%---------------------------------------------------------------
+\section{Principle of the swing-up strategy}
+The main focus of this project is the swing-up phase of the pendulum. This phase consists in leading the cart of the triple pendulum from the stable equilibrium to an unstable equilibrium where all the arms are in the upright position.
+
+%---------------------------------------------------------------
+%	MODELING OF THE TRIPLE PENDULUM
+%---------------------------------------------------------------
+\section{Modeling and dynamics of the triple pendulum}
+For the purpose of this project, it is required to develop the equations of motion of the triple pendulum system. A \emph{Lagrangian approach} is used for the modeling of the triple pendulum in the following pages.
+
+\subsection{Description of the triple pendulum}
+The pendulum consists in three links which are linked together to a cart. The cart is the only actuated part of the system. The other parts are free to move in their degree of freedom. For each link, a length and a mass is defined. The links are supposed to be made of homogeneous material so the gravity center for each one are on the geometrical middle of each bars. The viscous friction in the bears of the cart and the links is not considered for the modeling of the triple pendulum.
+
+A schematic representation of the system is showned in Figure \ref{fig:schematic_system}. The dispositions of the positions and angles, and the coordinate system are showned in Figure \ref{fig:schematic_system} and will be used for the modeling of the pendulum. 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=12cm]{illustrations/schematic_system.eps}
+	\caption{Triple arm inverted pendulum with assumed coordinate systems, dimensions and angles}
+	\label{fig:schematic_system}
+\end{figure}
+
+Since there are four degrees of freedom for the system, there are also four generalized coordinates which are defined for this pendulum. The first one is the position of the cart $x_{cart}$ with respect to a reference. The last three generalized coordinates are the angles ($\theta_1$, $\theta_2$, $\theta_3$) of links at the joints. Their zero value are when the bars are in down position and they take their positives values when turning counterclockwise. The assignement of each degree of freedom to a generalized coordinate is according to the following:
+\[
+	x_{cart}\to q_1, \qquad \theta_1\to q_2, \qquad \theta_2\to q_3, \qquad \theta_3\to q_4
+\]
+
+The parameters of the system are given values in Table \ref{tab:parameters_system} and will be used for every simulation of the triple pendulum.
+\begin{table}[H]
+	\centering
+	\caption{Parameters for the following simulations}
+	\label{tab:parameters_system}
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		Parameter  & Value & Unit                     \\ \midrule
+		$m_{cart}$ & 1     & kg                       \\
+		$m_1$      & 0.5   & kg                       \\
+		$m_2$      & 0.5   & kg                       \\
+		$m_3$      & 0.5   & kg                       \\
+		$l_1$      & 0.5   & m                        \\
+		$l_2$      & 0.5   & m                        \\
+		$l_3$      & 0.5   & m                        \\
+		$g$        & 9.81  & \si{m\per\square\second} \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+
+\subsection{Mathematical model}
+After defining the coordinate system and the generalized coordinates, the core of the modeling takes place here. The equations of motion for the system are derived from Lagrange's equations with a generalized force:
+\begin{equation}
+	\frac{\text{d}}{\text{d}t} \left(\frac{\partial \mathcal{L}}{\partial \dot q_i}\right) - \frac{\partial \mathcal{L}}{\partial q_i} = u_i
+	\quad \text{with}\ i=1,2,3,4
+\end{equation}
+Knowing that there is only one force input to the cart, the different $u_i$ are defined such as $u_1 = u$ and $u_i = 0$ for $i=2,3,4$.
+To derive these equations of motion, the Lagrangian of the triple pendulum needs to be founded:
+\begin{equation}
+	\mathcal{L} = \mathcal{T} - \mathcal{V}
+\end{equation}
+where $\mathcal{T}$ is the kinetic energy and $\mathcal{V}$ the potential energy. Furthermore, the vectors from the origin of the coordinate system to the center of mass of each arms are defined by:
+\[
+	\mathbf{p_1} =
+	\begin{bmatrix}
+		x_{cart} - l_1 \sin(\theta_1)/2 \\
+		l_1 \cos(\theta_1)/2
+	\end{bmatrix}
+\]
+\[
+	\mathbf{p_2} =
+	\begin{bmatrix}
+		x_{cart} - l_1 \sin(\theta_1) - l_2 \sin(\theta_2)/2 \\
+		l_1 \cos(\theta_1) + l_2 \cos(\theta_2)/2
+	\end{bmatrix}
+\]
+\[
+	\mathbf{p_3} =
+	\begin{bmatrix}
+		x_{cart} - l_1 \sin(\theta_1) - l_2 \sin(\theta_2) - l_3 \sin(\theta_3)/2 \\
+		l_1 \cos(\theta_1) + l_2 \cos(\theta_2) + l_3 \cos(\theta_3)/2
+	\end{bmatrix}
+\]
+The reasoning is borrowed from \cite{} the paper
+\subsection{Resolving the differential equations}
+
+\subsection{Verification of the Lagrange model}
+
+
+%---------------------------------------------------------------
+%	SWING6UP OF THE TRIPLE PENDULUM
+%---------------------------------------------------------------
+\section{Swing-up of the triple pendulum}
+
+\subsection{Generation of a downward trajectory}
+
+\subsection{Simulation swing-up of the triple pendulum}
+
+\subsection{Analysis}
+
+%---------------------------------------------------------------
+%	IMPLEMENTATION OF THE LQR STABILIZATION
+%---------------------------------------------------------------
+\section{Implementation of the LQR stabilization}
+\subsection{Theory of the LQR regulator}
+
+\subsection{Linearization of the equation of motion}
+%---------------------------------------------------------------
+%	CONCLUSION
+%---------------------------------------------------------------
+\section{Conclusion}
+
+\end{document}

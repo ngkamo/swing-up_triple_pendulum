@@ -61,7 +61,7 @@ For the purpose of this project, it is required to develop the equations of moti
 \subsection{Description of the triple pendulum}
 The pendulum consists in three links which are linked together to a cart. The cart is the only actuated part of the system. The other parts are free to move in their degree of freedom. For each link, a length and a mass is defined. The links are supposed to be made of homogeneous material so the gravity center for each one are on the geometrical middle of each bars. The viscous friction in the bears of the cart and the links is not considered for the modeling of the triple pendulum.
 
-A schematic representation of the system is showned in Figure \ref{fig:schematic_system}. The dispositions of the positions and angles, and the coordinate system are showned in Figure \ref{fig:schematic_system} and will be used for the modeling of the pendulum. 
+A schematic representation of the system is showned in Figure \ref{fig:schematic_system}. The dispositions of the positions and angles, and the coordinate system are showned in Figure \ref{fig:schematic_system} and will be used for the modeling of the pendulum.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=11cm]{illustrations/schematic_system.eps}
@@ -97,7 +97,6 @@ The parameters of the system are given values in Table \ref{tab:parameters_syste
 	\end{tabular}
 \end{table}
 
-
 \subsection{Mathematical model}
 After defining the coordinate system and the generalized coordinates, the core of the modeling takes place here. The equations of motion for the system are derived from Lagrange's equations with a generalized force:
 \begin{equation} \label{equ:Lagrange_motions}
@@ -132,8 +131,8 @@ where $\mathcal{T}$ is the kinetic energy and $\mathcal{V}$ the potential energy
 \]
 The reasoning for deriving kinetic and potential energies is borrowed from \cite{}. The kinetic energy of the whole system is given by:
 \begin{equation}
-	\mathcal{T} = \frac{1}{2} m_{cart}\, \dot x_{cart}^2 + 
-		\frac{1}{2} \sum_{i=1}^{3} m_i \mathbf{\dot p}_i^T \mathbf{\dot p}_i + 
+	\mathcal{T} = \frac{1}{2} m_{cart}\, \dot x_{cart}^2 +
+		\frac{1}{2} \sum_{i=1}^{3} m_i \mathbf{\dot p}_i^T \mathbf{\dot p}_i +
 		\frac{1}{2} \sum_{i=1}^{3} J_i\, \dot\theta_i^2
 \end{equation}
 The potential energy is computed with the $y$ components of each vector $\mathbf{p}_i$. Hence it is given by:

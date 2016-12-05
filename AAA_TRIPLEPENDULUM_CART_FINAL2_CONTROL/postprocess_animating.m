@@ -13,9 +13,9 @@ if animate
 %     writerObj = VideoWriter('out3_initchanged'); % Name of the output
 %     writerObj.Quality = 100;
 %     writerObj.FrameRate = 50; % Frames per second
-%     open(writerObj); 
-    
-    % Initial position
+%     open(writerObj);
+
+    % Print initial position in grey
     p0x0 = zhistory1(1,1);
     p0y0 = 0;
     x10  = zhistory1(1,1) + l1*sin(zhistory1(1,3));
@@ -24,7 +24,7 @@ if animate
     y20  = y10 - l2*cos(zhistory1(1,5));
     x30  = x20 + l3*sin(zhistory1(1,7));
     y30  = y20 - l3*cos(zhistory1(1,7));
-    
+
     figure('Units','centimeters');
     pos = get(gcf, 'Position');
     hold on;
@@ -47,7 +47,7 @@ if animate
             plot([p0x x1],[0 y1], 'Color',[0.4353 0.9765 0.1882], 'LineWidth',6);        % 1st link
             plot([x1 x2],[y1 y2], 'Color',[0.9294 0.0509 0.0274], 'LineWidth',6);        % 2nd link
             plot([x2 x3],[y2 y3], 'Color',[0.1411 0.5921 1], 'LineWidth',6);        % 3rd link
-                    
+
             time = annotation('textbox',...
                 'LineStyle','none',...
                 'String',{['time [s]: ',num2str(t_span(i),'%.2f')],...
@@ -74,11 +74,11 @@ if animate
 end
 
 
-% 
+%
 % % Plotting all the results on graphs
 % dimsubx = 2;
 % dimsuby = 3;
-% 
+%
 % figure(2)
 % grid on
 % subplot(dimsuby,dimsubx,1)
@@ -88,7 +88,7 @@ end
 % title('Positions of the cart and angles of  links')
 % xlabel('Time [s]')
 % grid on
-% 
+%
 % subplot(dimsuby,dimsubx,2)
 % plot(t_span,[zhistory(:,2) zhistory(:,4) zhistory(:,6) zhistory(:,8)])
 % lgd2 = legend('$\dot{x}_{cart}$','$\dot{\theta}_1$','$\dot{\theta}_2$','$\dot{\theta}_3$')
@@ -96,7 +96,7 @@ end
 % title('Speed and angular speeds')
 % xlabel('Time [s]')
 % grid on
-% 
+%
 % subplot(dimsuby,dimsubx,3)
 % [PE, KE] = postprocess_energy(zhistory,l1,l2,l3,m1,m2,m3,M,g)
 % % Total energy
@@ -108,19 +108,19 @@ end
 % title('Potential and kinetic energy')
 % xlabel('Time [s]')
 % grid on
-% 
+%
 % subplot(dimsuby,dimsubx,4)
 % plot(t_span(1:end-1),TE_diff)
 % title('Variation of the total energy')
 % xlabel('Time [s]')
 % grid on
-% 
+%
 % subplot(dimsuby,dimsubx,[5 6])
 % plot(t_span, uhistory(1,:))
 % title('Force input on the cart')
 % xlabel('Time [s]')
 % grid on
-% 
+%
 
 uinput_reversed = [];
 for i = 1:size(uhistory,2)
@@ -129,10 +129,10 @@ end
 save('uinput_reversed.mat','uinput_reversed');
 save('initial_cond_reversed.mat','zhistory');
 
-% 
+%
 % figure(3)
 % plot(t_span, uinput_reversed)
 % title('Input of the cart reversed')
 % xlabel('Time [s]')
 % grid on
-% 
+%

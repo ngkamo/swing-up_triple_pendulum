@@ -11,6 +11,12 @@ Winter semester project 2016 - EPFL
 - Optimal Control of Double Inverted Pendulum Using LQRController [Yadav, Sharma, Singh](https://fr.scribd.com/document/83077631/Optimal-Control-of-Double-Inverted-Pendulum-Using-LQR-Controller)
 - LQR control for stabilizing triple link inverted pendulum system [Sehgal, Tiwari](https://www.researchgate.net/publication/261075270_LQR_control_for_stabilizing_triple_link_inverted_pendulum_system)
 
+## Roadmap
+- [x] Replacing point masses by solid links
+- [x] LQR for upright equilibrium stabilization
+- [ ] LQR swing-up phase using same **K** as for the upright stabilization
+- [ ] LQR swing-up phase using several **K** during trajectory
+- [ ] Clean code and folders
 
 ## Exporting Matlab figures with publication quality
 ![Graph sample](https://github.com/ngkamo/swing-up_triple_pendulum/blob/master/AAA_TRIPLEPENDULUM_CART_FINAL2_CONTROL/illustrations/position_angle_cart.png?raw=true)

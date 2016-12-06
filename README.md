@@ -16,6 +16,7 @@ Winter semester project 2016 - EPFL
 ## Roadmap
 - [x] Replacing point masses by solid links
 - [x] LQR for upright equilibrium stabilization
+- [ ] Change the linearization state-space model for the new mass links and length
 - [ ] LQR swing-up (trajectory following) phase using same **K** as for the upright stabilization
 - [ ] LQR swing-up (trajectory following) phase using several **K** during trajectory
 - [ ] Clean code and folders

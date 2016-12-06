@@ -5,6 +5,7 @@ Winter semester project 2016 - EPFL
 - Simulating linear systems [ctms.engin.umich.edu](http://ctms.engin.umich.edu/CTMS/index.php?aux=Extras_lsim)
 - Full tutorial on LQR controllers for a simple inverted cart pendulum [ctms.engin.umich.edu/LQRpendulum](http://ctms.engin.umich.edu/CTMS/index.php?example=InvertedPendulum&section=ControlStateSpace)
 - LQR control theory, [Control and Dynamical Systems CALTECH](http://www.cds.caltech.edu/~murray/courses/cds110/wi06/lqr.pdf)
+- Another LQR control theory, [Pieter Abbeel UC Berkeley ](https://people.eecs.berkeley.edu/~pabbeel/cs287-fa12/slides/LQR.pdf)
 - Linearization using Symbolic Toolbox of Matlab [Youtube Video](https://www.youtube.com/watch?v=KXQKlpMXJYI)
 
 ## References
@@ -15,8 +16,8 @@ Winter semester project 2016 - EPFL
 ## Roadmap
 - [x] Replacing point masses by solid links
 - [x] LQR for upright equilibrium stabilization
-- [ ] LQR swing-up phase using same **K** as for the upright stabilization
-- [ ] LQR swing-up phase using several **K** during trajectory
+- [ ] LQR swing-up (trajectory following) phase using same **K** as for the upright stabilization
+- [ ] LQR swing-up (trajectory following) phase using several **K** during trajectory
 - [ ] Clean code and folders
 
 ## Exporting Matlab figures with publication quality

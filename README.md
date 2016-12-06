@@ -4,6 +4,7 @@ Winter semester project 2016 - EPFL
 ## Useful resources
 - Simulating linear systems [ctms.engin.umich.edu](http://ctms.engin.umich.edu/CTMS/index.php?aux=Extras_lsim)
 - Full tutorial on LQR controllers for a simple inverted cart pendulum [ctms.engin.umich.edu/LQRpendulum](http://ctms.engin.umich.edu/CTMS/index.php?example=InvertedPendulum&section=ControlStateSpace)
+- LQR control theory, [Control and Dynamical Systems CALTECH](http://www.cds.caltech.edu/~murray/courses/cds110/wi06/lqr.pdf)
 
 ## References
 - Swing-up control of a triple pendulum on a cart with experimental validation [Glück, Eder, Kugi](http://www.acin.tuwien.ac.at/fileadmin/cds/pre_post_print/glueck2013.pdf)

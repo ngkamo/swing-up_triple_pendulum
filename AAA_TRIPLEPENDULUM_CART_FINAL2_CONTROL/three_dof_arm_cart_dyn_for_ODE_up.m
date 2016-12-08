@@ -9,7 +9,7 @@ function dz = three_dof_arm_cart_dyn_for_ODE(t,z,u,l1,l2,l3,m1,m2,m3,M,g)
 	z7 = z(7);
 	z8 = z(8);
 
-	u1 = u(1);
+	u1 = u;
 
 	% These equations are derived from the file Symb_Development_3DOF
 	dz1 = z2;

@@ -35,10 +35,12 @@ options = odeset('abstol',1e-9,'reltol',1e-9);
 
 xprec = x0;
 for i =1:N
+    clc
+    i
     [t1,z1] = ode113(@three_dof_arm_cart_dyn_for_ODE, [0 dt 0.05], ...
         xprec,options,u,l1,l2,l3,m1,m2,m3,M,g);
     zhistory1 = [zhistory1; z1(2,:)];
-%     u = [-k1*z1(2,1)-k2*z1(2,2) 0 0 0]';
+    u = [-k1*z1(2,1)-k2*z1(2,2) 0 0 0]';
     uhistory = [uhistory u];
     t_history = [t_history t1(2)];
     xprec = z1(2,:);

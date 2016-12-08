@@ -6,7 +6,7 @@
 close all;
 % Animation of the simulation
 zhistory = zhistory1;
-animate = false;       % Change value here if you want to see the animation
+animate = true;       % Change value here if you want to see the animation
 % record = true;        % Change value here if you want to record
 if animate
     % Setting up the video
@@ -28,17 +28,17 @@ if animate
     figure('Units','centimeters');
     pos = get(gcf, 'Position');
     hold on;
-    for i=1:N
-        if(mod(i,5)==0)
+    for i=1:size(zhistory,1)
+        if(mod(i,50)==0)
             clf;
             p0x = zhistory(i,1);
             p0y = 0;
-            x1  = zhistory(i,1) + l1*sin(zhistory(i,3));
-            y1  = -l1*cos(zhistory(i,3));
-            x2  = x1 + l2*sin(zhistory(i,5));
-            y2  = y1 - l2*cos(zhistory(i,5));
-            x3  = x2 + l3*sin(zhistory(i,7));
-            y3  = y2 - l3*cos(zhistory(i,7));
+            x1  = zhistory(i,1) - l1*sin(zhistory(i,3));
+            y1  = l1*cos(zhistory(i,3));
+            x2  = x1 - l2*sin(zhistory(i,5));
+            y2  = y1 + l2*cos(zhistory(i,5));
+            x3  = x2 - l3*sin(zhistory(i,7));
+            y3  = y2 + l3*cos(zhistory(i,7));
             hold on
             plot(p0x0,0,'.' ,'Color',[0.7843 0.7843 0.7843] ,'MarkerSize',40);                % pivot point
             plot([p0x0 x10 x20 x30],[0 y10 y20 y30], 'Color',[0.7843 0.7843 0.7843], 'LineWidth',4);        % 1st link

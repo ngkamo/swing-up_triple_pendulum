@@ -107,7 +107,7 @@ A = jacobian([feq1; feq2; feq3; feq4; feq5; feq6; feq7; feq8], [z1 z2 z3 z4 z5 z
 B = jacobian([feq1; feq2; feq3; feq4; feq5; feq6; feq7; feq8], u1);
 
 l1 = 1;     l2 = 1;     l3 = 1;  % length of the links
-m1 = 1;     m2 = 1;     m3 = 2;  % masses at the end of each link
+m1 = 0.5;     m2 = 0.5;     m3 = 0.5;  % masses at the end of each link
 M  = 1;                          % mass of the cart
 g  = 9.8;
 z1 = 0; z2 = 0;

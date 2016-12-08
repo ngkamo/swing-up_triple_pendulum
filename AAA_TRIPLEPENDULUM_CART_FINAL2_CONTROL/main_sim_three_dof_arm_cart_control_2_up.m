@@ -13,24 +13,26 @@ m1 = 1;     m2 = 1;     m3 = 2;  % masses at the end of each link
 M  = 1;                          % mass of the cart
 g  = 9.8;
 k1 = 3;   k2 = 12;              % constants for the PD controller
-u = [0 0 0 0]';
+u = 0;
 
 %%%%% SETTING PARAMETERS FOR THE ODE SOLVER %%%%%
 init_t = 0;
-final_t = 15;
-dt = 0.01;
+final_t = 10;
+dt = 0.001;
 N = (final_t-init_t)/dt;
 t_span = [init_t:dt:final_t-dt];
 
 %%%%%%%%%%%%% INITIAL CONDITIONS %%%%%%%%%%%%%%%%
-% x0 = [0 0 3.13 -0.4 3.13 -0.6 3.13 -0.6]'; % 3.1 0.2 3.1 0.4 0.5
-% x0 = [0 0 0 0 0 0 0 0.2]';
-x0 = [0 0 -pi/2 0 -pi/2 0 0 0-0.2]';
+% x0 = [0 0 -0.01 -0.4 -0.01 -0.6 -0.01 -0.6]'; % 3.1 0.2 3.1 0.4 0.5
+x0 = [1 0 0.1 0 0 0 0 0]';
+% x0 = [0 0 -pi/2 0 -pi/2 0 0 0-0.2]';
 % x0 = [0 0 3 -0.2 3 -0.5 3 -0.6]';
 % x0 = [0 0 pi/2-0.1 0 pi/2-0.1 0 pi/2-0.1 0]';
-zhistory1 = zeros(1500,8);
-uhistory = [];
-t_history = [];
+zhistory1 = zeros(N,8);
+uhistory = zeros(N,1);
+t_history = zeros(N,1);
+K = [-10 -21.85 380.53 21.72 -1277 -59.13 1155  197.655];
+% K = [10 -21.85 0 0 0 0 0 0];
 
 %%%%%%%%%%%%%%%%%% ODE SOLVER %%%%%%%%%%%%%%%%%%%
 options = odeset('abstol',1e-9,'reltol',1e-9);
@@ -41,11 +43,14 @@ for i =1:N
     i
     [t1,z1] = ode113(@three_dof_arm_cart_dyn_for_ODE_up, [0 dt 0.05], ...
         xprec,options,u,l1,l2,l3,m1,m2,m3,M,g);
-    zhistory1 = [zhistory1; z1(2,:)];
-    u = [-k1*z1(2,1)-k2*z1(2,2) 0 0 0]';
-    uhistory = [uhistory u];
-    t_history = [t_history; t1(2)];
+%     u = -k1*z1(2,1)-k2*z1(2,2);
+    u = -K*z1(2,:)';
+    zhistory1(i,:) = z1(2,:);
     xprec = z1(2,:);
+    if z1(2,1)>=4 || z1(2,1)<=-4
+        fprintf('ODE113 terminated, out of bounds');
+        break
+    end
 end
 
 zhistory1 = [x0'; zhistory1];
@@ -53,10 +58,10 @@ zhistory1(end,:) = [ ];
 
 %%%%%%%%%%%%%%% POST PROCESSING %%%%%%%%%%%%%%%%%
 % Animation of the simulation
-figure;
+figure(1);
 hold on;
-for i=1:N
-    if(mod(i,2)==1)
+for i=1:size(zhistory1,1)
+    if(mod(i,5)==1)
         clf;
         p0x = zhistory1(i,1);
         p0y = 0;
@@ -85,8 +90,9 @@ end
 % Plotting all the results on graphs
 figure(2)
 plot(t_span,zhistory1(:,1))
+title('Position of the cart')
 
-[PE, KE] = postprocess_energy_up(zhistory1,l1,l2,l3,m1,m2,m3,M,g)
+[PE, KE] = postprocess_energy_up(zhistory1,l1,l2,l3,m1,m2,m3,M,g);
 % Total energy
 figure(3)
 PE = 68.6 + PE;
@@ -95,7 +101,7 @@ legend('KE','PE','KE+PE')
 TE = KE + PE;
 TE_diff = diff(TE);
 figure(4)
-plot(t_span(1:end-1),TE_diff)
+plot(t_span(1:end-1)',TE_diff)
 grid on
 title('Variation of the total energy')
 

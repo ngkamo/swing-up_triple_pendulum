@@ -47,7 +47,7 @@ D = zeros(4,1);
 
 R = 1;
 
-Q = diag([100 0 1000 0 1000 0 1000 0]);
+Q = diag([100 0 2000 0 2000 0 2000 0]);
 
 [K,P,E] = lqr(A,B,Q,R);
 
@@ -56,7 +56,9 @@ Bc = B;
 Cc = C;
 Dc = D;
 
-% sys_cl = ss(Ac,Bc,Cc,Dc);
+
+sys_cl = ss(Ac,Bc,Cc,Dc);
+% step(sys_cl)
 % t = 0:0.001:10;
 % r =[0 0*ones(1,100) 50*ones(1,900)];
 % [y,t,x]=lsim(sys_cl,r,t);
@@ -70,7 +72,7 @@ sys_ss = ss(A,B,Cn,0);
 Nbar = rscale(sys_ss,K);
 
 sys_cl = ss(Ac,Bc*Nbar,Cc,Dc);
-y = [2 0 1 0 0.5 0 -0.3 0];
+y = [2 0 0 0 0 0 0 0];
 t = 0:0.001:5;
 r =0*ones(size(t));
 [y,t,x]=lsim(sys_cl,r,t,y);

@@ -158,21 +158,3 @@ set(gca, 'FontSize', 13, 'LineWidth', 1, ...
 legend({'$\dot x_{cart}$' '$\dot\theta_1$' '$\dot\theta_2$' '$\dot\theta_3$'},'Interpreter','latex','FontSize', 14,'Location','southeast')
 title('Position and angles of the triple pendulum')
 set(gcf,'InvertHardcopy','on', 'PaperUnits','centimeters');
-%%
-% figure(4)
-% p0x = y(1,1);
-% p0y = 0;
-% x1  = y(1,1) - l1*sin(y(1,2));
-% y1  = l1*cos(y(1,2));
-% x2  = x1 - l2*sin(y(1,3));
-% y2  = y1 + l2*cos(y(1,3));
-% x3  = x2 - l3*sin(y(1,4));
-% y3  = y2 + l3*cos(y(1,4));
-% hold on
-% plot(p0x,0,'k.','MarkerSize',40);                % pivot point
-% plot([p0x x1],[0 y1], 'Color',[0.4353 0.9765 0.1882], 'LineWidth',6);        % 1st link
-% plot([x1 x2],[y1 y2], 'Color',[0.9294 0.0509 0.0274], 'LineWidth',6);        % 2nd link
-% axis([-4 4 -4 4]);
-% grid on
-% axis square
-% plot([x2 x3],[y2 y3], 'Color',[0.1411 0.5921 1], 'LineWidth',6);        % 3rd link

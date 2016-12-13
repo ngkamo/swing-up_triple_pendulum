@@ -45,17 +45,18 @@ C(4,7) = 1;
 
 D = zeros(4,1);
 
-R = 1;
-
+R = 0.5;
 Q = diag([100 0 2000 0 2000 0 2000 0]);
 
-[K,P,E] = lqr(A,B,Q,R);
+% Q = diag([1 0 0 0 0 0 0 0]);
+% R = 0.0001;
+
+[K,P,E] = dlqr(A,B,Q,R);
 
 Ac = A-B*K;
 Bc = B;
 Cc = C;
 Dc = D;
-
 
 sys_cl = ss(Ac,Bc,Cc,Dc);
 % step(sys_cl)
@@ -67,7 +68,7 @@ sys_cl = ss(Ac,Bc,Cc,Dc);
 % grid on
 
 %% Adding precompensation
-Cn = [1 0 1 0 0 0 0 0];
+Cn = [1 0 0 0 0 0 0 0];
 sys_ss = ss(A,B,Cn,0);
 Nbar = rscale(sys_ss,K);
 
@@ -76,8 +77,6 @@ y = [0 0 0 0 0 0 0 0];
 t = 0:0.001:5;
 r =1*ones(size(t));
 [y,t,x]=lsim(sys_cl,r,t,y);
-figure(3);
-plot(t,[y(:,1) y(:,2) y(:,3) y(:,4)]);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% ANIMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 l1 = 1; l2 = 1; l3 = 1;

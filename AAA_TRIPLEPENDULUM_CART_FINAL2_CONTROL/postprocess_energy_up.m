@@ -1,9 +1,8 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This function computes the potential and the
-% kinectic energy during the simulation of the
-% triple pendulum
-% Edited on 30th November 2016
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+% This function computes the potential and the kinectic energy during the 
+% simulation of the triple pendulum
+% Edited on 13th December 2016
+%--------------------------------------------------------------------------
 
 function [PE, KE] = postprocess_energy(z,l1,l2,l3,m1,m2,m3,M,g)
 % p0x = z(:,1);

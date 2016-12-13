@@ -21,7 +21,7 @@
  %8/21/96 Yanjie Sun of the University of Michigan
  %        under the supervision of Prof. D. Tilbury
  %6/12/98 John Yook, Dawn Tilbury revised
- error(nargchk(2,5,nargin));
+%  error(nargchk(2,5,nargin));
  % --- Determine which syntax is being used ---
  nargin1 = nargin;
  if (nargin1==2),	% System form

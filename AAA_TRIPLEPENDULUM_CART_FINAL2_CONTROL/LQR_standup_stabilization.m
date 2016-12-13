@@ -72,9 +72,9 @@ sys_ss = ss(A,B,Cn,0);
 Nbar = rscale(sys_ss,K);
 
 sys_cl = ss(Ac,Bc*Nbar,Cc,Dc);
-y = [2 0 0 0 0 0 0 0];
+y = [0 0 0 0 0 0 0 0];
 t = 0:0.001:5;
-r =0*ones(size(t));
+r =1*ones(size(t));
 [y,t,x]=lsim(sys_cl,r,t,y);
 figure(3);
 plot(t,[y(:,1) y(:,2) y(:,3) y(:,4)]);
@@ -120,10 +120,44 @@ for i=1:size(t,1)
     end
 end
 
-figure(4)
+
+%%
+close all
+figure(3)
 u = K*x';
-plot(t,u')
+plot(t,u','LineWidth',2)
 title('Input from the controller')
+xlabel('Time [s]')
+
+set(gca, 'FontSize', 13, 'LineWidth', 1, ...
+    'XMinorTick','on', 'YMinorTick','on', ...
+    'XGrid','on', 'YGrid','on', ...
+    'FontName','Roboto Condensed', ...
+    'TickLength',[0.02 0.02]);
+set(gcf,'InvertHardcopy','on', 'PaperUnits','centimeters');
+
+%%
+figure(4)
+yyaxis left
+plot(t,y(:,1),'LineWidth',2)
+ylabel('Position of the cart [m]')
+set(gca, 'FontSize', 13, 'LineWidth', 1, ...
+    'XMinorTick','on', 'YMinorTick','on', ...
+    'XGrid','on', 'YGrid','on', ...
+    'FontName','Roboto Condensed', ...
+    'TickLength',[0.02 0.02]);
+
+yyaxis right
+plot(t,[y(:,2) y(:,3) y(:,4)],'LineWidth',2)
+ylabel('Angles of the links [rad]')
+set(gca, 'FontSize', 13, 'LineWidth', 1, ...
+    'XMinorTick','on', 'YMinorTick','on', ...
+    'XGrid','on', 'YGrid','on', ...
+    'FontName','Roboto Condensed', ...
+    'TickLength',[0.02 0.02]);
+legend({'$\dot x_{cart}$' '$\dot\theta_1$' '$\dot\theta_2$' '$\dot\theta_3$'},'Interpreter','latex','FontSize', 14,'Location','southeast')
+title('Position and angles of the triple pendulum')
+set(gcf,'InvertHardcopy','on', 'PaperUnits','centimeters');
 %%
 % figure(4)
 % p0x = y(1,1);

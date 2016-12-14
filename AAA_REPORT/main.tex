@@ -91,26 +91,25 @@ Since there are four degrees of freedom for the system, there are also four gene
 	x_{cart}\to q_1, \qquad \theta_1\to q_2, \qquad \theta_2\to q_3, \qquad \theta_3\to q_4
 \]
 
-The parameters of the system are given values in \autoref{tab:parameters_system} and will be used for every simulation of the triple pendulum. The moments of inertia for each link is given by:
-\[J_i = \frac{m_i\,l_i^2}{12}\]
+The parameters of the system are given values in \autoref{tab:parameters_system} and will be used for every simulation of the triple pendulum.
 \begin{table}[H]
 	\centering
 	\caption{Parameters for the following simulations}
 	\label{tab:parameters_system}
-	\begin{tabular}{@{}lll@{}}
+	\begin{tabular}{@{}llll@{}}
 		\toprule
-		Parameter  & Value  & Unit                         \\ \midrule
-		$m_{cart}$ & 1      & kg                           \\
-		$m_1$      & 0.5    & kg                           \\
-		$m_2$      & 0.5    & kg                           \\
-		$m_3$      & 0.5    & kg                           \\
-		$l_1$      & 1      & m                            \\
-		$l_2$      & 1      & m                            \\
-		$l_3$      & 1      & m                            \\
-		$J_1$      & 0.0416 & \si{\kilo\gram\square\metre} \\
-		$J_2$      & 0.0416 & \si{\kilo\gram\square\metre} \\
-		$J_3$      & 0.0416 & \si{\kilo\gram\square\metre} \\
-		$g$        & 9.81   & \si{m\per\square\second}     \\ \bottomrule
+		Parameter             & Symbol                      & Value  & Unit                         \\ \midrule
+		Mass of the cart      & $m_{cart}$                  & 1      & kg                           \\
+		Mass of first arm     & $m_1$                       & 0.5    & kg                           \\
+		Mass of second arm    & $m_2$                       & 0.5    & kg                           \\
+		Mass of third arm     & $m_3$                       & 0.5    & kg                           \\
+		Length of first arm   & $l_1$                       & 1      & m                            \\
+		Length of second arm  & $l_2$                       & 1      & m                            \\
+		Length of third arm   & $l_3$                       & 1      & m                            \\
+		Inertia of first arm  & $J_1=\frac{m_1\,l_1^2}{12}$ & 0.0416 & \si{\kilo\gram\square\metre} \\
+		Inertia of second arm & $J_2=\frac{m_2\,l_2^2}{12}$ & 0.0416 & \si{\kilo\gram\square\metre} \\
+		Inertia of third arm  & $J_3=\frac{m_3\,l_3^2}{12}$ & 0.0416 & \si{\kilo\gram\square\metre} \\
+		Constant of gravity   & $g$                         & 9.81   & \si{m\per\square\second}     \\ \bottomrule
 	\end{tabular}
 \end{table}
 

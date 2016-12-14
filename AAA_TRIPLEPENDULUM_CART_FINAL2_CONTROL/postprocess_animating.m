@@ -5,7 +5,8 @@
 %%%%%%%%%%%%%%% POST PROCESSING %%%%%%%%%%%%%%%%%
 close all;
 % Animation of the simulation
-zhistory = zhistory1;
+load('initial_cond_reversed')
+% zhistory = zhistory1;
 animate = true;       % Change value here if you want to see the animation
 % record = true;        % Change value here if you want to record
 if animate
@@ -16,14 +17,14 @@ if animate
 %     open(writerObj);
 
     % Print initial position in grey
-    p0x0 = zhistory1(1,1);
-    p0y0 = 0;
-    x10  = zhistory1(1,1) + l1*sin(zhistory1(1,3));
-    y10  = -l1*cos(zhistory1(1,3));
-    x20  = x10 + l2*sin(zhistory1(1,5));
-    y20  = y10 - l2*cos(zhistory1(1,5));
-    x30  = x20 + l3*sin(zhistory1(1,7));
-    y30  = y20 - l3*cos(zhistory1(1,7));
+%     p0x0 = zhistory1(1,1);
+%     p0y0 = 0;
+%     x10  = zhistory1(1,1) + l1*sin(zhistory1(1,3));
+%     y10  = -l1*cos(zhistory1(1,3));
+%     x20  = x10 + l2*sin(zhistory1(1,5));
+%     y20  = y10 - l2*cos(zhistory1(1,5));
+%     x30  = x20 + l3*sin(zhistory1(1,7));
+%     y30  = y20 - l3*cos(zhistory1(1,7));
 
     figure('Units','centimeters');
     pos = get(gcf, 'Position');
@@ -40,8 +41,8 @@ if animate
             x3  = x2 - l3*sin(zhistory(i,7));
             y3  = y2 + l3*cos(zhistory(i,7));
             hold on
-            plot(p0x0,0,'.' ,'Color',[0.7843 0.7843 0.7843] ,'MarkerSize',40);                % pivot point
-            plot([p0x0 x10 x20 x30],[0 y10 y20 y30], 'Color',[0.7843 0.7843 0.7843], 'LineWidth',4);        % 1st link
+%             plot(p0x0,0,'.' ,'Color',[0.7843 0.7843 0.7843] ,'MarkerSize',40);                % pivot point
+%             plot([p0x0 x10 x20 x30],[0 y10 y20 y30], 'Color',[0.7843 0.7843 0.7843], 'LineWidth',4);        % 1st link
 
             plot(p0x,0,'k.','MarkerSize',40);                % pivot point
             plot([p0x x1],[0 y1], 'Color',[0.4353 0.9765 0.1882], 'LineWidth',6);        % 1st link
@@ -74,7 +75,6 @@ if animate
 end
 
 
-%
 % % Plotting all the results on graphs
 % dimsubx = 2;
 % dimsuby = 3;
@@ -122,12 +122,37 @@ end
 % grid on
 %
 
-uinput_reversed = [];
-for i = 1:size(uhistory,2)
-    uinput_reversed(i) = uhistory(1,end-i+1);
-end
-save('uinput_reversed.mat','uinput_reversed');
-save('initial_cond_reversed.mat','zhistory');
+%%
+% Position and angles of the cart
+figure(4)
+yyaxis left
+plot(t_span,zhistory(:,1),'LineWidth',2)
+ylabel('Position of the cart [m]')
+set(gca, 'FontSize', 13, 'LineWidth', 1, ...
+    'XMinorTick','on', 'YMinorTick','on', ...
+    'XGrid','on', 'YGrid','on', ...
+    'FontName','Roboto Condensed', ...
+    'TickLength',[0.02 0.02]);
+
+yyaxis right
+plot(t_span,[zhistory(:,3) zhistory(:,5) zhistory(:,7)],'LineWidth',2)
+ylabel('Angles of the links [rad]')
+set(gca, 'FontSize', 13, 'LineWidth', 1, ...
+    'XMinorTick','on', 'YMinorTick','on', ...
+    'XGrid','on', 'YGrid','on', ...
+    'FontName','Roboto Condensed', ...
+    'TickLength',[0.02 0.02]);
+legend({'$\dot x_{cart}$' '$\dot\theta_1$' '$\dot\theta_2$' '$\dot\theta_3$'},'Interpreter','latex','FontSize', 14,'Location','southeast')
+title('Position and angles of the triple pendulum')
+set(gcf,'InvertHardcopy','on', 'PaperUnits','centimeters');
+
+% Input
+% uinput_reversed = [];
+% for i = 1:size(uhistory,2)
+%     uinput_reversed(i) = uhistory(1,end-i+1);
+% end
+% save('uinput_reversed.mat','uinput_reversed');
+% save('initial_cond_reversed.mat','zhistory');
 
 %
 % figure(3)

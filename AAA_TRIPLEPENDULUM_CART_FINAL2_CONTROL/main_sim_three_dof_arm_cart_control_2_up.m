@@ -24,7 +24,7 @@ t_span = [init_t:dt:final_t-dt];
 
 %%%%%%%%%%%%% INITIAL CONDITIONS %%%%%%%%%%%%%%%%
 % x0 = [0 0 -0.01 -0.4 -0.01 -0.6 -0.01 -0.6]'; % 3.1 0.2 3.1 0.4 0.5
-x0 = [1 0 0.1 0 0 0 0 0]';
+x0 = [0 0 -pi/2 0 -pi/2 0 -pi/2 0]';
 % x0 = [0 0 -pi/2 0 -pi/2 0 0 0-0.2]';
 % x0 = [0 0 3 -0.2 3 -0.5 3 -0.6]';
 % x0 = [0 0 pi/2-0.1 0 pi/2-0.1 0 pi/2-0.1 0]';
@@ -32,7 +32,6 @@ zhistory1 = zeros(N,8);
 uhistory = zeros(N,1);
 t_history = zeros(N,1);
 K = [-10 -21.85 380.53 21.72 -1277 -59.13 1155  197.655];
-% K = [10 -21.85 0 0 0 0 0 0];
 
 %%%%%%%%%%%%%%%%%% ODE SOLVER %%%%%%%%%%%%%%%%%%%
 options = odeset('abstol',1e-9,'reltol',1e-9);
@@ -44,7 +43,7 @@ for i =1:N
     [t1,z1] = ode113(@three_dof_arm_cart_dyn_for_ODE_up, [0 dt 0.05], ...
         xprec,options,u,l1,l2,l3,m1,m2,m3,M,g);
 %     u = -k1*z1(2,1)-k2*z1(2,2);
-    u = -K*z1(2,:)';
+%     u = -K*z1(2,:)';
     zhistory1(i,:) = z1(2,:);
     xprec = z1(2,:);
     if z1(2,1)>=4 || z1(2,1)<=-4

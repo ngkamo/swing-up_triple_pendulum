@@ -3,10 +3,17 @@ Winter semester project 2016 - EPFL
 
 ## Useful resources
 - Simulating linear systems [ctms.engin.umich.edu](http://ctms.engin.umich.edu/CTMS/index.php?aux=Extras_lsim)
+
+### LQR controller
 - Full tutorial on LQR controllers for a simple inverted cart pendulum [ctms.engin.umich.edu/LQRpendulum](http://ctms.engin.umich.edu/CTMS/index.php?example=InvertedPendulum&section=ControlStateSpace)
 - LQR control theory, [Control and Dynamical Systems CALTECH](http://www.cds.caltech.edu/~murray/courses/cds110/wi06/lqr.pdf)
 - Another LQR control theory, [Pieter Abbeel UC Berkeley ](https://people.eecs.berkeley.edu/~pabbeel/cs287-fa12/slides/LQR.pdf)
 - Linearization using Symbolic Toolbox of Matlab [Youtube Video](https://www.youtube.com/watch?v=KXQKlpMXJYI)
+
+### Lagrange formalism
+- Sutdy of a coupled pendulum [Mathieu Schaller EPFL](https://documents.epfl.ch/users/m/ms/mschalle/www/SiteWeb/ComputationalPhysics/physNum_report3.pdf)
+- Simple pendulum case [Physics UNICE (FR)](http://physique.unice.fr/sem6/2011-2012/PagesWeb/PT/Pendule/study1_simple.html)
+- Lagrange equations with MATLAB [Yun](http://youngmok.com/lagrange-equation-by-matlab-with-examples/)
 
 ## References
 - Swing-up control of a triple pendulum on a cart with experimental validation [Glück, Eder, Kugi](http://www.acin.tuwien.ac.at/fileadmin/cds/pre_post_print/glueck2013.pdf)

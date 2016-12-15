@@ -13,6 +13,9 @@ Winter semester project 2016 - EPFL
 - Another LQR control theory, [Pieter Abbeel UC Berkeley ](https://people.eecs.berkeley.edu/~pabbeel/cs287-fa12/slides/LQR.pdf)
 - Linearization using Symbolic Toolbox of Matlab [Youtube Video](https://www.youtube.com/watch?v=KXQKlpMXJYI)
 
+### LQR for trajectory tracking
+- Lineear Quadratic Regulator [Richard M. Murray 11.01.2006](http://www.cds.caltech.edu/~murray/courses/cds110/wi06/L2-1_LQR.pdf)
+
 ### Lagrange formalism
 - Sutdy of a coupled pendulum [Mathieu Schaller EPFL](https://documents.epfl.ch/users/m/ms/mschalle/www/SiteWeb/ComputationalPhysics/physNum_report3.pdf)
 - Simple pendulum case [Physics UNICE (FR)](http://physique.unice.fr/sem6/2011-2012/PagesWeb/PT/Pendule/study1_simple.html)

@@ -50,19 +50,22 @@ In this report, the subject of the swing-up of a triple arm inverted pendulum is
 
 LQR controller
 \end{abstract}
+\newpage
 
 %---------------------------------------------------------------
 %	INTRODUCTION
 %---------------------------------------------------------------
 \section{Introduction}\label{sec:intro} %ABSTRACT
-The swing-up of a triple arm inverted pendulum is presented. The main focus of this semester project is to simulate a strategy for the swing-up of the pendulum. It is done to study the feasability of the strategy.
+The swing-up of a triple arm inverted pendulum is presented. The main focus of this semester project is to simulate a strategy for the swing-up of the pendulum. It is done to study the feasibility of the strategy.
 The goal of this project is to provide a solution for the swing-up of a triple arm inverted pendulum.
 
 %---------------------------------------------------------------
 %	PRINCIPLE OF THE SWING-UP STRATEGY
 %---------------------------------------------------------------
 \section{Principle of the swing-up strategy}
-The main focus of this project is the swing-up phase of the pendulum. This phase consists in leading the cart of the triple pendulum from the stable equilibrium to an unstable equilibrium where all the arms are in the upright position.
+The main focus of this project is the swing-up phase of the pendulum. This phase consists in leading the cart of the triple pendulum from the stable equilibrium to an unstable equilibrium where all the arms are in the upright position. 
+
+The principle is resumed in \autoref{fig:swingup_strategy}. The first step (phase 1) is to let fall the triple pendulum from its unstable equilibrium to its stable equilibrium. A PD controller which applies to the cart acts as a damper. Meanwhile the falling of the three links, their angles and angular velocities are recorded (phase 2) as well as the position and velocity of the cart, and the input of the PD controller. The recording is stopped after a certain time or until the triple pendulum is stabilized. Then the logged input PD controller is reversed (phase 3) and implemented to the triple pendulum for the swing-up. The system have the same behavior recorded previously but in the reversed time or way.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{principle_swingup}
@@ -78,7 +81,7 @@ For the purpose of this project, it is required to develop the equations of moti
 \subsection{Description of the triple pendulum}
 The pendulum consists in three links which are linked together to a cart. The cart is the only actuated part of the system. The other parts are free to move in their degree of freedom. For each link, a length and a mass is defined. The links are supposed to be made of homogeneous material so the gravity center for each one are on the geometrical middle of each bars. The viscous friction in the bears of the cart and the links is not considered for the modeling of the triple pendulum.
 
-A schematic representation of the system is showned in \autoref{fig:schematic_system}. The dispositions of the positions and angles, and the coordinate system are showned in \autoref{fig:schematic_system} and will be used for the modeling of the pendulum.
+A schematic representation of the system is showed in \autoref{fig:schematic_system}. The dispositions of the positions and angles, and the coordinate system are showed in \autoref{fig:schematic_system} and will be used for the modeling of the pendulum.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=11cm]{illustrations/schematic_system.eps}
@@ -86,31 +89,30 @@ A schematic representation of the system is showned in \autoref{fig:schematic_sy
 	\label{fig:schematic_system}
 \end{figure}
 
-Since there are four degrees of freedom for the system, there are also four generalized coordinates which are defined for this pendulum. The first one is the position of the cart $x_{cart}$ with respect to a reference. The last three generalized coordinates are the angles ($\theta_1$, $\theta_2$, $\theta_3$) of links at the joints. Their zero value are when the bars are in down position and they take their positives values when turning counterclockwise. The assignement of each degree of freedom to a generalized coordinate is according to the following:
+Since there are four degrees of freedom for the system, there are also four generalized coordinates which are defined for this pendulum. The first one is the position of the cart $x_{cart}$ with respect to a reference. The last three generalized coordinates are the angles ($\theta_1$, $\theta_2$, $\theta_3$) of links at the joints. Their zero value are when the bars are in down position and they take their positives values when turning counterclockwise. The assignment of each degree of freedom to a generalized coordinate is according to the following:
 \[
 	x_{cart}\to q_1, \qquad \theta_1\to q_2, \qquad \theta_2\to q_3, \qquad \theta_3\to q_4
 \]
 
-The parameters of the system are given values in \autoref{tab:parameters_system} and will be used for every simulation of the triple pendulum. The moments of inertia for each link is given by:
-\[J_i = \frac{m_i\,l_i^2}{12}\]
+The parameters of the system are given values in \autoref{tab:parameters_system} and will be used for every numerical simulation of the triple pendulum.
 \begin{table}[H]
 	\centering
 	\caption{Parameters for the following simulations}
 	\label{tab:parameters_system}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
-		Parameter  & Value  & Unit                         \\ \midrule
-		$m_{cart}$ & 1      & kg                           \\
-		$m_1$      & 0.5    & kg                           \\
-		$m_2$      & 0.5    & kg                           \\
-		$m_3$      & 0.5    & kg                           \\
-		$l_1$      & 1      & m                            \\
-		$l_2$      & 1      & m                            \\
-		$l_3$      & 1      & m                            \\
-		$J_1$      & 0.0416 & \si{\kilo\gram\square\metre} \\
-		$J_2$      & 0.0416 & \si{\kilo\gram\square\metre} \\
-		$J_3$      & 0.0416 & \si{\kilo\gram\square\metre} \\
-		$g$        & 9.81   & \si{m\per\square\second}     \\ \bottomrule
+		Parameter                   & Value  & Unit                         \\ \midrule
+		$m_{cart}$                  & 1      & kg                           \\
+		$m_1$                       & 0.5    & kg                           \\
+		$m_2$                       & 0.5    & kg                           \\
+		$m_3$                       & 0.5    & kg                           \\
+		$l_1$                       & 1      & m                            \\
+		$l_2$                       & 1      & m                            \\
+		$l_3$                       & 1      & m                            \\
+		$J_1=\frac{m_1\,l_1^2}{12}$ & 0.0416 & \si{\kilo\gram\square\metre} \\
+		$J_2=\frac{m_2\,l_2^2}{12}$ & 0.0416 & \si{\kilo\gram\square\metre} \\
+		$J_3=\frac{m_3\,l_3^2}{12}$ & 0.0416 & \si{\kilo\gram\square\metre} \\
+		$g$                         & 9.81   & \si{m\per\square\second}     \\ \bottomrule
 	\end{tabular}
 \end{table}
 
@@ -159,18 +161,26 @@ The potential energy is computed with the $y$ components of each vector $\mathbf
 \end{equation}
 The Lagrange's equations obtained with (\ref{equ:Lagrange_motions}) are:
 \begin{multline}
-- \ddot\theta_1 \big((l_1 m_1 \cos( \theta_1))/2 + l_1 m_2 \cos(\theta_1) + l_1 m_3 \cos(\theta_1)\big) - \ddot \theta_2 \big(l_2 m_2 \cos(\theta_2)/2 + l_2 m_3 \cos(\theta_2)\big) \\
+- \ddot\theta_1 \big[(l_1 m_1 \cos( \theta_1))/2 + l_1 m_2 \cos(\theta_1) + l_1 m_3 \cos(\theta_1)\big] - \ddot \theta_2 \big[l_2 m_2 \cos(\theta_2)/2 + l_2 m_3 \cos(\theta_2)\big] \\
 - \ddot\theta_3 l_3 m_3 \cos(\theta_3)/2 + \ddot x \big(M + m_1 + m_2 + m_3\big) + \dot\theta_1^2 l_1 \big( m_1/2 + m_2 + m_3 \big)\sin(\theta_1) \\
-+ \dot \theta_2^2 l_2\big(m_2/2 + m_3\big)\sin(\theta_2) +\dot \theta_3^2 l_3 m_3 \sin(\theta_3)/2 = u_1 \\
++ \dot \theta_2^2 l_2\big(m_2/2 + m_3\big)\sin(\theta_2) +\dot \theta_3^2 l_3 m_3 \sin(\theta_3)/2 = u_1
 \end{multline}
 \begin{multline}
 \big[\ddot x\left( -3m_1\cos(\theta_1) - 6m_2\cos(\theta_1) - 6m_3\cos(\theta_1) \right) +\ddot\theta_1 l_1\left( 2m_1 + 6m_2 + 6m_3 \right) \\
 + \ddot\theta_2 l_2 \left(3m_2 + 6m_3\right) \cos(\theta_1 - \theta_2) + \ddot\theta_3 3l_3m_3\cos(\theta_1 - \theta_3) \\
 +\dot\theta_2^2 l_2 (3m_2 + 6m_3) \sin(\theta_1-\theta_2) + \dot\theta_3^2 3 l_3m_3 \sin(\theta_1-\theta_3)\\
 - 6 g m_2 \sin(\theta_1) - 6 g m_3 \sin(\theta_1) - 3 g m_1 \sin(\theta_1)\\
-- g (3m_1+6m_2+6m_3) \sin(\theta_1) \big] l_1/6 = 0\\
+- g (3m_1+6m_2+6m_3) \sin(\theta_1) \big] l_1/6 = 0
 \end{multline}
-
+\begin{multline}
+-\big[l_2 (3 g m_2  \sin(\theta_2) + 6 g m_3  \sin(\theta_2) + 3 m_2 \ddot x  \cos(\theta_2) + 6 m_3 \ddot x  \cos(\theta_2) - 2 l_2 m_2 \ddot \theta_2 \\
+- 6 l_2 m_3 \ddot \theta_2 + 3 l_1 m_2 \dot \theta_1^2  \sin(\theta_1 - \theta_2) + 6 l_1 m_3 \dot \theta_1^2  \sin(\theta_1 - \theta_2) - 3 l_3 m_3 \dot \theta_3^2  \sin(\theta_2 - \theta_3) \\
+- 3 l_1 m_2 \ddot \theta_1  \cos(\theta_1 - \theta_2) - 6 l_1 m_3 \ddot \theta_1  \cos(\theta_1 - \theta_2) - 3 l_3 m_3 \ddot \theta_3  \cos(\theta_2 - \theta_3))\big]/6 = 0
+\end{multline}
+\begin{multline}
+-\big[l_3 m_3 (3 l_1 \sin(\theta_1 - \theta_3) \dot\theta_1^2 + 3 l_2 \sin(\theta_2 - \theta_3) \theta_2d^2 - 2 l_3 \ddot\theta_3 + 3 g \sin(\theta_3) + 3 \ddot x cos(\theta_3) \\
+- 3 l_1 \ddot\theta_1 \cos(\theta_1 - \theta_3) - 3 l_2 \ddot\theta_2 \cos(\theta_2 - \theta_3))\big]/6 = 0
+\end{multline}
 \subsection{Resolving the differential equations}
 
 \subsection{Verification of the Lagrange model}

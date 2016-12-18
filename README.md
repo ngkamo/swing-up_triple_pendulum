@@ -5,6 +5,7 @@ Winter semester project 2016 - EPFL
 - Simulating linear systems [ctms.engin.umich.edu](http://ctms.engin.umich.edu/CTMS/index.php?aux=Extras_lsim)
 - Control theory [S. Simrock, Hamburg](https://cds.cern.ch/record/1100534/files/p73.pdf)
 - Modelling, analysis and control of linear systems [O. Sename, Grenoble INP](https://www.gipsa-lab.grenoble-inp.fr/~o.sename/docs/ME_auto.pdf)
+- Controlling an Inverted pendulum using state space modeling method (step by step guide) [Tsegazeab Shishaye](https://www.academia.edu/4468049/Controlling_an_Inverted_pendulum_using_state_space_modeling_method_step_by_step_design_guide_for_control_students_)
 
 ### LQR controller
 - Controlling an inverted pendulum(step by step design) [T. Shishaye](http://www.academia.edu/4468049/Controlling_an_Inverted_pendulum_using_state_space_modeling_method_step_by_step_design_guide_for_control_students_)

@@ -1,4 +1,4 @@
-function dz = three_dof_arm_cart_dyn_for_ODE(t,z,u,l1,l2,l3,m1,m2,m3,M,g)
+function dz = three_dof_arm_cart_dyn_for_ODE(t,z,u,param)
     load('motion_equations.mat','fx');
 	z1 = z(1);
 	z2 = z(2);
@@ -11,6 +11,15 @@ function dz = three_dof_arm_cart_dyn_for_ODE(t,z,u,l1,l2,l3,m1,m2,m3,M,g)
 
 	u1 = u;
 
+  l1 = param.l1;
+  l2 = param.l2;
+  l3 = param.l3;
+  m1 = param.m1;
+  m2 = param.m2;
+  m3 = param.m3;
+  M  = param.M;
+  g  = param.g;
+  
 	% These equations are derived from the file Symb_Development_3DOF
 	dz1 = z2;
 	dz2 = -(144*m2^2*u1*cos(2*z3 - 2*z5) - 144*m3^2*u1 - 240*m2^2*u1 + 144*m3^2*u1*cos(2*z3 - 2*z5) - 128*m1*m2*u1 - 240*m1*m3*u1 - 600*m2*m3*u1 - 48*g*m2^3*sin(2*z3) + 360*m2*m3*u1*cos(2*z3 - 2*z5) - 72*m2*m3*u1*cos(2*z3 - 2*z7) + 144*m1*m3*u1*cos(2*z5 - 2*z7) + 216*m2*m3*u1*cos(2*z5 - 2*z7) - 120*g*m1*m2^2*sin(2*z3) - 48*g*m1^2*m2*sin(2*z3) - 72*g*m1*m3^2*sin(2*z3) - 90*g*m1^2*m3*sin(2*z3) + 24*g*m1*m2^2*sin(2*z5) - 48*g*m2*m3^2*sin(2*z3) - 150*g*m2^2*m3*sin(2*z3) + 24*g*m1*m3^2*sin(2*z5) + 96*l1*m2^3*z4^2*sin(z3) + 24*l2*m2^3*z6^2*sin(z5) + 27*g*m1^2*m3*sin(2*z3 - 2*z5 + 2*z7) + 27*g*m1^2*m3*sin(2*z3 + 2*z5 - 2*z7) + 27*g*m2^2*m3*sin(2*z3 - 2*z5 + 2*z7) + 27*g*m2^2*m3*sin(2*z3 + 2*z5 - 2*z7) + 24*l2*m2^3*z6^2*sin(2*z3 - z5) + 24*l1*m1*m2^2*z4^2*sin(z3 - 2*z5) + 24*l1*m1*m3^2*z4^2*sin(z3 - 2*z5) + 18*l2*m2^2*m3*z6^2*sin(z5 - 2*z7) - 300*g*m1*m2*m3*sin(2*z3) + 60*g*m1*m2*m3*sin(2*z5) - 12*g*m1*m2*m3*sin(2*z7) + 48*l2*m1*m2^2*z6^2*sin(2*z3 - z5) + 72*l2*m1*m3^2*z6^2*sin(2*z3 - z5) + 48*l2*m2*m3^2*z6^2*sin(2*z3 - z5) + 90*l2*m2^2*m3*z6^2*sin(2*z3 - z5) + 18*l3*m1*m3^2*z8^2*sin(2*z3 - z7) + 6*l3*m2*m3^2*z8^2*sin(2*z3 - z7) - 12*l3*m2^2*m3*z8^2*sin(2*z3 - z7) + 6*l3*m1*m3^2*z8^2*sin(2*z5 - z7) + 18*l3*m2*m3^2*z8^2*sin(2*z5 - z7) + 36*l3*m2^2*m3*z8^2*sin(2*z5 - z7) + 54*g*m1*m2*m3*sin(2*z3 - 2*z5 + 2*z7) + 54*g*m1*m2*m3*sin(2*z3 + 2*z5 - 2*z7) + 200*l1*m1*m2^2*z4^2*sin(z3) + 64*l1*m1^2*m2*z4^2*sin(z3) + 120*l1*m1*m3^2*z4^2*sin(z3) + 120*l1*m1^2*m3*z4^2*sin(z3) + 96*l1*m2*m3^2*z4^2*sin(z3) + 300*l1*m2^2*m3*z4^2*sin(z3) + 16*l2*m1*m2^2*z6^2*sin(z5) + 24*l2*m1*m3^2*z6^2*sin(z5) + 48*l2*m2*m3^2*z6^2*sin(z5) + 90*l2*m2^2*m3*z6^2*sin(z5) + 6*l3*m1*m3^2*z8^2*sin(z7) + 6*l3*m2*m3^2*z8^2*sin(z7) - 12*l3*m2^2*m3*z8^2*sin(z7) - 36*l1*m1^2*m3*z4^2*sin(z3 - 2*z5 + 2*z7) - 36*l1*m1^2*m3*z4^2*sin(z3 + 2*z5 - 2*z7) - 54*l1*m2^2*m3*z4^2*sin(z3 - 2*z5 + 2*z7) - 54*l1*m2^2*m3*z4^2*sin(z3 + 2*z5 - 2*z7) - 18*l2*m2^2*m3*z6^2*sin(2*z3 + z5 - 2*z7) + 18*l3*m1*m3^2*z8^2*sin(2*z3 - 2*z5 + z7) + 18*l3*m2*m3^2*z8^2*sin(2*z3 - 2*z5 + z7) + 36*l3*m2^2*m3*z8^2*sin(2*z3 - 2*z5 + z7) + 60*l1*m1*m2*m3*z4^2*sin(z3 - 2*z5) - 12*l1*m1*m2*m3*z4^2*sin(z3 - 2*z7) + 6*l2*m1*m2*m3*z6^2*sin(z5 - 2*z7) + 150*l2*m1*m2*m3*z6^2*sin(2*z3 - z5) + 12*l3*m1*m2*m3*z8^2*sin(2*z3 - z7) + 12*l3*m1*m2*m3*z8^2*sin(2*z5 - z7) + 500*l1*m1*m2*m3*z4^2*sin(z3) + 50*l2*m1*m2*m3*z6^2*sin(z5) + 4*l3*m1*m2*m3*z8^2*sin(z7) - 90*l1*m1*m2*m3*z4^2*sin(z3 - 2*z5 + 2*z7) - 90*l1*m1*m2*m3*z4^2*sin(z3 + 2*z5 - 2*z7) - 18*l2*m1*m2*m3*z6^2*sin(2*z3 + z5 - 2*z7) + 36*l3*m1*m2*m3*z8^2*sin(2*z3 - 2*z5 + z7))/(240*M*m2^2 - 48*m2^3*cos(2*z3) + 144*M*m3^2 + 200*m1*m2^2 + 80*m1^2*m2 + 120*m1*m3^2 + 150*m1^2*m3 + 48*m2*m3^2 + 150*m2^2*m3 + 48*m2^3 - 72*m1*m2^2*cos(2*z3 - 2*z5) - 72*m1*m3^2*cos(2*z3 - 2*z5) - 90*m1^2*m3*cos(2*z5 - 2*z7) - 54*m2^2*m3*cos(2*z5 - 2*z7) + 128*M*m1*m2 + 240*M*m1*m3 + 600*M*m2*m3 + 500*m1*m2*m3 - 120*m1*m2^2*cos(2*z3) - 48*m1^2*m2*cos(2*z3) - 72*m1*m3^2*cos(2*z3) - 90*m1^2*m3*cos(2*z3) + 24*m1*m2^2*cos(2*z5) - 48*m2*m3^2*cos(2*z3) - 150*m2^2*m3*cos(2*z3) + 24*m1*m3^2*cos(2*z5) + 27*m1^2*m3*cos(2*z3 - 2*z5 + 2*z7) + 27*m1^2*m3*cos(2*z3 + 2*z5 - 2*z7) + 27*m2^2*m3*cos(2*z3 - 2*z5 + 2*z7) + 27*m2^2*m3*cos(2*z3 + 2*z5 - 2*z7) - 144*M*m2^2*cos(2*z3 - 2*z5) - 144*M*m3^2*cos(2*z3 - 2*z5) - 180*m1*m2*m3*cos(2*z3 - 2*z5) + 36*m1*m2*m3*cos(2*z3 - 2*z7) - 180*m1*m2*m3*cos(2*z5 - 2*z7) - 300*m1*m2*m3*cos(2*z3) + 60*m1*m2*m3*cos(2*z5) - 12*m1*m2*m3*cos(2*z7) + 54*m1*m2*m3*cos(2*z3 - 2*z5 + 2*z7) + 54*m1*m2*m3*cos(2*z3 + 2*z5 - 2*z7) - 360*M*m2*m3*cos(2*z3 - 2*z5) + 72*M*m2*m3*cos(2*z3 - 2*z7) - 144*M*m1*m3*cos(2*z5 - 2*z7) - 216*M*m2*m3*cos(2*z5 - 2*z7));

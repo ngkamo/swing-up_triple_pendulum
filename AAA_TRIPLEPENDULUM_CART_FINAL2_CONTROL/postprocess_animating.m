@@ -5,41 +5,49 @@
 %%%%%%%%%%%%%%% POST PROCESSING %%%%%%%%%%%%%%%%%
 close all;
 % Animation of the simulation
-load('initial_cond_reversed')
-% zhistory = zhistory1;
+% load('trajectory_history_all')
+l1 = param.l1;
+l2 = param.l2;
+l3 = param.l3;
+m1 = param.m1;
+m2 = param.m2;
+m3 = param.m3;
+M  = param.M;
+g  = param.g;
+
+zhistory_res = zhistory;
 animate = true;       % Change value here if you want to see the animation
-% record = true;        % Change value here if you want to record
 if animate
     % Setting up the video
-%     writerObj = VideoWriter('out3_initchanged'); % Name of the output
+%     writerObj = VideoWriter('out_periodicsol1'); % Name of the output
 %     writerObj.Quality = 100;
 %     writerObj.FrameRate = 50; % Frames per second
 %     open(writerObj);
 
     % Print initial position in grey
-%     p0x0 = zhistory1(1,1);
+%     p0x0 = zhistory_res1(1,1);
 %     p0y0 = 0;
-%     x10  = zhistory1(1,1) + l1*sin(zhistory1(1,3));
-%     y10  = -l1*cos(zhistory1(1,3));
-%     x20  = x10 + l2*sin(zhistory1(1,5));
-%     y20  = y10 - l2*cos(zhistory1(1,5));
-%     x30  = x20 + l3*sin(zhistory1(1,7));
-%     y30  = y20 - l3*cos(zhistory1(1,7));
+%     x10  = zhistory_res1(1,1) + l1*sin(zhistory_res1(1,3));
+%     y10  = -l1*cos(zhistory_res1(1,3));
+%     x20  = x10 + l2*sin(zhistory_res1(1,5));
+%     y20  = y10 - l2*cos(zhistory_res1(1,5));
+%     x30  = x20 + l3*sin(zhistory_res1(1,7));
+%     y30  = y20 - l3*cos(zhistory_res1(1,7));
 
     figure('Units','centimeters');
     pos = get(gcf, 'Position');
     hold on;
-    for i=1:size(zhistory,1)
-        if(mod(i,50)==0)
+    for i=1:size(zhistory_res,1)-1
+        if(mod(i,20)==1)
             clf;
-            p0x = zhistory(i,1);
+            p0x = zhistory_res(i,1);
             p0y = 0;
-            x1  = zhistory(i,1) - l1*sin(zhistory(i,3));
-            y1  = l1*cos(zhistory(i,3));
-            x2  = x1 - l2*sin(zhistory(i,5));
-            y2  = y1 + l2*cos(zhistory(i,5));
-            x3  = x2 - l3*sin(zhistory(i,7));
-            y3  = y2 + l3*cos(zhistory(i,7));
+            x1  = zhistory_res(i,1) - l1*sin(zhistory_res(i,3));
+            y1  = l1*cos(zhistory_res(i,3));
+            x2  = x1 - l2*sin(zhistory_res(i,5));
+            y2  = y1 + l2*cos(zhistory_res(i,5));
+            x3  = x2 - l3*sin(zhistory_res(i,7));
+            y3  = y2 + l3*cos(zhistory_res(i,7));
             hold on
 %             plot(p0x0,0,'.' ,'Color',[0.7843 0.7843 0.7843] ,'MarkerSize',40);                % pivot point
 %             plot([p0x0 x10 x20 x30],[0 y10 y20 y30], 'Color',[0.7843 0.7843 0.7843], 'LineWidth',4);        % 1st link
@@ -65,7 +73,7 @@ if animate
             axis square
             set(gca, 'FontName','Roboto Condensed');
             grid on
-            pause(0.01);
+            pause(0.001);
 %             frame = getframe(gcf); % 'gcf' can handle if you zoom in to take a movie.
 %             writeVideo(writerObj, frame);
         end
@@ -82,7 +90,7 @@ end
 % figure(2)
 % grid on
 % subplot(dimsuby,dimsubx,1)
-% plot(t_span,[zhistory(:,1) zhistory(:,3) zhistory(:,5) zhistory(:,7)])
+% plot(t_span,[zhistory_res(:,1) zhistory_res(:,3) zhistory_res(:,5) zhistory_res(:,7)])
 % lgd1 = legend('$x_{cart}$','$\theta_1$','$\theta_2$','$\theta_3$')
 % set(lgd1,'Interpreter','latex','FontSize',12);
 % title('Positions of the cart and angles of  links')
@@ -90,7 +98,7 @@ end
 % grid on
 %
 % subplot(dimsuby,dimsubx,2)
-% plot(t_span,[zhistory(:,2) zhistory(:,4) zhistory(:,6) zhistory(:,8)])
+% plot(t_span,[zhistory_res(:,2) zhistory_res(:,4) zhistory_res(:,6) zhistory_res(:,8)])
 % lgd2 = legend('$\dot{x}_{cart}$','$\dot{\theta}_1$','$\dot{\theta}_2$','$\dot{\theta}_3$')
 % set(lgd2,'Interpreter','latex','FontSize',12);
 % title('Speed and angular speeds')
@@ -98,7 +106,7 @@ end
 % grid on
 %
 % subplot(dimsuby,dimsubx,3)
-% [PE, KE] = postprocess_energy(zhistory,l1,l2,l3,m1,m2,m3,M,g)
+% [PE, KE] = postprocess_energy(zhistory_res,l1,l2,l3,m1,m2,m3,M,g)
 % % Total energy
 % PE = 68.6 + PE;
 % TE = KE + PE;
@@ -122,11 +130,10 @@ end
 % grid on
 %
 
-%%
-% Position and angles of the cart
-figure(4)
+%% Position and angles of the cart
+figure(2)
 yyaxis left
-plot(t_span,zhistory(:,1),'LineWidth',2)
+plot(t_span,zhistory_res(:,1),'LineWidth',2)
 ylabel('Position of the cart [m]')
 set(gca, 'FontSize', 13, 'LineWidth', 1, ...
     'XMinorTick','on', 'YMinorTick','on', ...
@@ -135,24 +142,39 @@ set(gca, 'FontSize', 13, 'LineWidth', 1, ...
     'TickLength',[0.02 0.02]);
 
 yyaxis right
-plot(t_span,[zhistory(:,3) zhistory(:,5) zhistory(:,7)],'LineWidth',2)
+zhistory_res1 = rad2deg(zhistory_res(:,[3 5 7]))
+plot(t_span,[zhistory_res1(:,1) zhistory_res1(:,2) zhistory_res1(:,3)],'LineWidth',2)
 ylabel('Angles of the links [rad]')
 set(gca, 'FontSize', 13, 'LineWidth', 1, ...
     'XMinorTick','on', 'YMinorTick','on', ...
     'XGrid','on', 'YGrid','on', ...
     'FontName','Roboto Condensed', ...
-    'TickLength',[0.02 0.02]);
-legend({'$\dot x_{cart}$' '$\dot\theta_1$' '$\dot\theta_2$' '$\dot\theta_3$'},'Interpreter','latex','FontSize', 14,'Location','southeast')
+    'TickLength',[0.02 0.02],'YTick',[-360 -315 -270 -225 -180 -135 -90 -45 0]);
+legend({'$x_{cart}$' '$\theta_1$' '$\theta_2$' '$\theta_3$'},'Interpreter','latex','FontSize', 14,'Location','southeast')
 title('Position and angles of the triple pendulum')
 set(gcf,'InvertHardcopy','on', 'PaperUnits','centimeters');
 
+print('position_angle_history','-dpng','-r300');
+
+%% Input history
+figure(3)
+plot(t_span,uhistory','LineWidth',2)
+title('Input from the controller')
+xlabel('Time [s]')
+
+set(gca, 'FontSize', 13, 'LineWidth', 1, ...
+    'XMinorTick','on', 'YMinorTick','on', ...
+    'XGrid','on', 'YGrid','on', ...
+    'FontName','Roboto Condensed', ...
+    'TickLength',[0.02 0.02]);
+set(gcf,'InvertHardcopy','on', 'PaperUnits','centimeters');
 % Input
 % uinput_reversed = [];
 % for i = 1:size(uhistory,2)
 %     uinput_reversed(i) = uhistory(1,end-i+1);
 % end
 % save('uinput_reversed.mat','uinput_reversed');
-% save('initial_cond_reversed.mat','zhistory');
+% save('initial_cond_reversed.mat','zhistory_res');
 
 %
 % figure(3)

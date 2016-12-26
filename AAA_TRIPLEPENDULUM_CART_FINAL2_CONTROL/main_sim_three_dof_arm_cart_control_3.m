@@ -16,7 +16,7 @@ k1 = 0.5;   k2 = 4;              % constants for the PD controller
 u = [0 0 0 0]';
 
 load('uinput_reversed')
-load('initial_cond_reversed')
+load('trajectory_history')
 
 
 %%%%% SETTING PARAMETERS FOR THE ODE SOLVER %%%%%
@@ -36,6 +36,8 @@ x0 = x0';
 zhistory2 = [];
 uhistory = [];
 
+K = [-10 -21.85 380.53 21.72 -1277 -59.13 1155  197.655];
+
 %%%%%%%%%%%%%%%%%% ODE SOLVER %%%%%%%%%%%%%%%%%%%
 options = odeset('abstol',1e-9,'reltol',1e-9);
 [t,z] = ode113(@three_dof_arm_cart_dyn_for_ODE, t_span, x0, options,u,l1,l2,l3,m1,m2,m3,M,g);
@@ -44,7 +46,7 @@ xprec = x0;
 for i =1:N
     [t1,z1] = ode113(@three_dof_arm_cart_dyn_for_ODE, [0 dt 0.05], xprec,options,u,l1,l2,l3,m1,m2,m3,M,g);
     zhistory2 = [zhistory2; z1(2,:)];
-    u = [uinput_reversed(i) 0 0 0]';
+    u = uhistory(i);
     xprec = z1(2,:);
 end
 

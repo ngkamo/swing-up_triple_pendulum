@@ -1,22 +1,9 @@
-close all; clear; clc
+% close all; clear; clc
 
-A = [0   1      0    0      0    0    0     0;
-     0   0   33.6    0   -6.0    0    0.6   0;
-     0   0      0    1      0    0    0     0;
-     0   0   96.6    0  -54.0    0    5.4   0;
-     0   0      0    0      0    1    0     0;
-     0   0  -75.6    0   87.0    0  -23.4   0;
-     0   0      0    0      0    0    0     1;
-     0   0   18.9    0  -58.5    0   42.6   0];
+load('state_space_lin.mat');
 
- B = [0;
-      0.7755;
-      0;
-      0.9796;
-      0;
-     -0.2449;
-      0;
-      0.0612];
+A = A_lin;
+B = B_lin;
 
 C = zeros(4,8);
 C(1,1) = 1;
@@ -29,10 +16,11 @@ D = zeros(4,1);
 sys_ss = ss(A,B,C,D);
 
 % t = 0:0.01:0.5;
-% r =1*ones(size(t));
-% [y,t,x]=lsim(sys_ss,r,t);
+% y = [0 0 pi 0 pi 0 pi 0];
+% u =[zeros(size(t,2),1), pi*ones(size(t,2),3)]';
+% [y,t,x]=lsim(sys_ss,u,t,y);
 % plot(t,[y(:,1) y(:,2) y(:,3) y(:,4)]);
-
+%%
 R = 1;
 
 Q = diag([100 0 1000 0 1000 0 1000 0]);
@@ -58,7 +46,7 @@ sys_ss = ss(A,B,Cn,0);
 Nbar = rscale(sys_ss,K)
 
 sys_cl = ss(Ac,Bc*Nbar,Cc,Dc);
-y = [0 0 0 0 0 0.5 0 -1];
+y = [0 0 0 0 0 0.5 -0.3 0.2];
 t = 0:0.001:5;
 r =0*ones(size(t));
 [y,t,x]=lsim(sys_cl,r,t,y);

@@ -4,7 +4,15 @@
 % Edited on 13th December 2016
 %--------------------------------------------------------------------------
 
-function [PE, KE] = postprocess_energy(z,l1,l2,l3,m1,m2,m3,M,g)
+function [PE, KE] = postprocess_energy(z,param)
+l1 = param.l1;
+l2 = param.l2;
+l3 = param.l3;
+m1 = param.m1;
+m2 = param.m2;
+m3 = param.m3;
+M  = param.M;
+g  = param.g;
 % p0x = z(:,1);
 % x1  = z(:,1) + l1*sin(z(:,3));
 % y1  = -l1*cos(z(:,3));

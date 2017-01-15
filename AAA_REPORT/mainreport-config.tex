@@ -19,31 +19,6 @@
 % \usepackage{breqn}
 \usepackage{amsmath}
 %------------------------------------------------
-\usepackage{hyperref}
-\usepackage{hyperref}  % backref linktocpage pagebackref
-
-\hypersetup{
-% Uncomment the line below to remove all links (to references, figures, tables, etc), useful for b/w printouts
-%draft, 
-colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,
-% Uncomment the line below if you want to have black links (e.g. for printing black and white)
-%colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=3, pdfstartview=FitV, 
-breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
-plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
-hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
-urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen, %pagecolor=RoyalBlue,%
-    %urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
-%------------------------------------------------
-% PDF file meta-information
-pdftitle={\myTitle},
-pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},
-pdfsubject={},
-pdfkeywords={},
-pdfcreator={pdfLaTeX},
-pdfproducer={LaTeX with hyperref and classicthesis}
-%------------------------------------------------
-}
-%------------------------------------------------
 \usepackage{array,multirow}
 \usepackage{booktabs}
 %------------------------------------------------
@@ -62,12 +37,13 @@ pdfproducer={LaTeX with hyperref and classicthesis}
 \usepackage{fourier}
 \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 \usepackage[condensed]{roboto}
-%\renewcommand{\sfdefault}{fvs} % Lato for 1st page and section titles fla
-%\linespread{1.025}
+\usepackage{inconsolata}
+
 %------------------------------------------------
 \usepackage{import}
-%\usepackage[final]{pdfpages}
+\usepackage{pdfpages}
 \usepackage{graphicx}
+\usepackage{subcaption}
 
 %------------------------------------------------
 \usepackage[a4paper]{geometry}
@@ -86,6 +62,59 @@ pdfproducer={LaTeX with hyperref and classicthesis}
 \fancyfoot[CE,CO]{}
 \fancyfoot[LE,RO]{\thepage}
 
+%------------------------------------------------
+\usepackage{listings}
+\definecolor{greencomment}{RGB}{34,139,34}
+\definecolor{stringstyle}{RGB}{160,32,240}
+\definecolor{backgrey}{RGB}{248,248,248}
+
+\lstset{
+  language         = Matlab,
+  basicstyle       = \ttfamily\scriptsize,
+  backgroundcolor  = \color{backgrey},
+  frame            = tb,
+  flexiblecolumns  = true,
+  keywordstyle     = \textbf,
+  commentstyle     = \color{greencomment},
+  stringstyle      = \color{green!70!black},
+  stringstyle      = \color{stringstyle},
+  columns          = fullflexible,
+  numbers          = left,
+  numberstyle      = \scriptsize\sffamily\color{gray},
+  xleftmargin      = 0.5cm,
+  xrightmargin     = 0.cm,
+  lineskip         = -0.0002ex,
+  breaklines       = true,
+  prebreak         = {...},
+  showstringspaces = false,
+  float,
+}
+
+%------------------------------------------------
+\usepackage{natbib}
+\setcitestyle{round}
+\usepackage{hyperref}  % backref linktocpage pagebackref
+
+\hypersetup{
+	% Uncomment the line below to remove all links (to references, figures, tables, etc), useful for b/w printouts
+	%draft, 
+	colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,
+	% Uncomment the line below if you want to have black links (e.g. for printing black and white)
+	%colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=3, pdfstartview=FitV, 
+	breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
+	plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+	hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
+	linkcolor=RoyalBlue, citecolor=RoyalBlue, %pagecolor=RoyalBlue,%
+	urlcolor=RoyalBlue, linkcolor=RoyalBlue, %pagecolor=Black,%
+	%------------------------------------------------
+	% PDF file meta-information
+	pdftitle={\myTitle},
+	pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},
+	pdfsubject={},
+	pdfkeywords={},
+	pdfcreator={pdfLaTeX},
+	pdfproducer={LaTeX with hyperref and classicthesis}
+}
 %------------------------------------------------
 \setlist{noitemsep}
 

@@ -1,21 +1,19 @@
-# Swing-up of a triple arm inverted pendulum
+# Swing-up of a triple arm inverted pendulum using time reversal
 Winter semester project 2016 - EPFL
 
 ## Useful resources
-- Simulating linear systems [ctms.engin.umich.edu](http://ctms.engin.umich.edu/CTMS/index.php?aux=Extras_lsim)
-- Control theory [S. Simrock, Hamburg](https://cds.cern.ch/record/1100534/files/p73.pdf)
+- Control tutorials for MATLAB and Simulink [ctms.engin.umich.edu](http://ctms.engin.umich.edu/CTMS/index.php?aux=Home)
+- Feedback systems: Introduction [Karl J. Åström and Richard M. Murray](http://www.cds.caltech.edu/~murray/amwiki/index.php?title=Main_Page)
 - Modelling, analysis and control of linear systems [O. Sename, Grenoble INP](https://www.gipsa-lab.grenoble-inp.fr/~o.sename/docs/ME_auto.pdf)
-- Controlling an Inverted pendulum using state space modeling method (step by step guide) [Tsegazeab Shishaye](https://www.academia.edu/4468049/Controlling_an_Inverted_pendulum_using_state_space_modeling_method_step_by_step_design_guide_for_control_students_)
+- Dynamic simulation MATLAB [Cornell University](http://ruina.tam.cornell.edu/research/topics/locomotion_and_robotics/ranger/ranger_paper/Reports/Ranger_Robot/control/simulator/doublependulum.html)
 
 ### LQR controller
-- Controlling an inverted pendulum(step by step design) [T. Shishaye](http://www.academia.edu/4468049/Controlling_an_Inverted_pendulum_using_state_space_modeling_method_step_by_step_design_guide_for_control_students_)
+- Controlling an Inverted pendulum using state space modeling method (step by step guide) [Tsegazeab Shishaye](https://www.academia.edu/4468049/Controlling_an_Inverted_pendulum_using_state_space_modeling_method_step_by_step_design_guide_for_control_students_)
 - Full tutorial on LQR controllers for a simple inverted cart pendulum [ctms.engin.umich.edu/LQRpendulum](http://ctms.engin.umich.edu/CTMS/index.php?example=InvertedPendulum&section=ControlStateSpace)
 - LQR control theory, [Control and Dynamical Systems CALTECH](http://www.cds.caltech.edu/~murray/courses/cds110/wi06/lqr.pdf)
 - Another LQR control theory, [Pieter Abbeel UC Berkeley ](https://people.eecs.berkeley.edu/~pabbeel/cs287-fa12/slides/LQR.pdf)
 - Linearization using Symbolic Toolbox of Matlab [Youtube Video](https://www.youtube.com/watch?v=KXQKlpMXJYI)
-
-### LQR for trajectory tracking
-- Lineear Quadratic Regulator [Richard M. Murray 11.01.2006](http://www.cds.caltech.edu/~murray/courses/cds110/wi06/L2-1_LQR.pdf)
+- Linear Quadratic Regulator [Richard M. Murray 11.01.2006](http://www.cds.caltech.edu/~murray/courses/cds110/wi06/L2-1_LQR.pdf)
 
 ### Lagrange formalism
 - Sutdy of a coupled pendulum [Mathieu Schaller EPFL](https://documents.epfl.ch/users/m/ms/mschalle/www/SiteWeb/ComputationalPhysics/physNum_report3.pdf)
@@ -23,8 +21,12 @@ Winter semester project 2016 - EPFL
 - Lagrange equations with MATLAB [Yun](http://youngmok.com/lagrange-equation-by-matlab-with-examples/)
 
 ## References
-- State space control, LQR and observer [Roland Büchi]()
+- Systèmes dynamiques, ME-221 [Dominique Bonvin](http://la.epfl.ch/page-53050.html)
+- State space control, LQR and observer [Roland Büchi](https://books.google.ch/books?id=JrofAgAAQBAJ&dq=state+space+control+lqr+and+observer+b%C3%BCchi&hl=fr&source=gbs_navlinks_s)
 - Swing-up control of a triple pendulum on a cart with experimental validation [Glück, Eder, Kugi](http://www.acin.tuwien.ac.at/fileadmin/cds/pre_post_print/glueck2013.pdf)
+- Stabilization of triple link inverted pendulum system based  on LQR control technique [Gupta, Bansal, Singh]()
+- Robust stabilization of a triple inverted pendulum cart [Medrano-Cerda]()
+- Swinging up a pendulum by energy control [Åström and Furuta](http://www.sciencedirect.com/science/article/pii/S0005109899001405)
 - Optimal Control of Double Inverted Pendulum Using LQRController [Yadav, Sharma, Singh](https://fr.scribd.com/document/83077631/Optimal-Control-of-Double-Inverted-Pendulum-Using-LQR-Controller)
 - LQR control for stabilizing triple link inverted pendulum system [Sehgal, Tiwari](https://www.researchgate.net/publication/261075270_LQR_control_for_stabilizing_triple_link_inverted_pendulum_system)
 
@@ -32,7 +34,7 @@ Winter semester project 2016 - EPFL
 - [x] Replacing point masses by solid links
 - [x] LQR for upright equilibrium stabilization
 - [x] Change the linearization state-space model for the new mass links and length
-- [ ] LQR swing-up (trajectory following) phase using same **K** as for the upright stabilization
+- [x] LQR swing-up (trajectory following) phase using same **K** as for the upright stabilization (04.01.2017)
 - [ ] LQR swing-up (trajectory following) phase using several **K** during trajectory
 - [ ] Clean code and folders
 

@@ -1,11 +1,18 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This function computes the potential and the
-% kinectic energy during the simulation of the
-% triple pendulum
-% Edited on 30th November 2016
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+% This function computes the potential and the kinectic energy during the 
+% simulation of the triple pendulum
+% Edited on 13th December 2016
+%--------------------------------------------------------------------------
 
-function [PE, KE] = postprocess_energy(z,l1,l2,l3,m1,m2,m3,M,g)
+function [PE, KE] = postprocess_energy(z,param)
+l1 = param.l1;
+l2 = param.l2;
+l3 = param.l3;
+m1 = param.m1;
+m2 = param.m2;
+m3 = param.m3;
+M  = param.M;
+g  = param.g;
 % p0x = z(:,1);
 % x1  = z(:,1) + l1*sin(z(:,3));
 % y1  = -l1*cos(z(:,3));
@@ -47,7 +54,7 @@ p2d = [x2d y2d];
 p3d = [x3d y3d];
 
 %%%%%%%%%% POTENTIAL AND KINETIC ENERGY %%%%%%%%%%
-PE = m1*g*p1(:,2) + m2*g*p2(:,2) + m3*g*p3(:,2);
+PE = m1*g*p1(:,2) + m2*g*p2(:,2) + m3*g*p3(:,2) + 44.1;
 
 KE = 0.5 * (M*xd.^2 + m1*sum(p1d.^2,2) + m2*sum(p2d.^2,2) + m3*sum(p3d.^2,2)) + ...
     0.5 * (m1*l1^2/12*theta1d.^2 + m2*l2^2/12*theta2d.^2 + m3*l3^2/12*theta3d.^2);

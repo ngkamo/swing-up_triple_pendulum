@@ -15,7 +15,7 @@ syms g;
 % y3 = -l1*cos(theta1) - l2*cos(theta2) - l3/2*cos(theta3);
 
 %%%%%%%%%%%%%%%%%%% POSITION OF CENTER OF MASS %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-p1 = [x+l1/2*sin(theta1); -l1/2*cos(theta1)];
+p1 = [x + l1/2*sin(theta1); -l1/2*cos(theta1)];
 p2 = [x + l1*sin(theta1) + l2/2*sin(theta2); -l1*cos(theta1) - l2/2*cos(theta2)];
 p3 = [x + l1*sin(theta1) + l2*sin(theta2) + l3/2*sin(theta3); -l1*cos(theta1) - l2*cos(theta2) - l3/2*cos(theta3)];
 

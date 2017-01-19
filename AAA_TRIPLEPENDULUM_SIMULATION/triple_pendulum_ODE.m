@@ -1,4 +1,4 @@
-function dz = three_dof_arm_cart_dyn_for_ODE(t,z,u,l1,l2,l3,m1,m2,m3,M,g)
+function dz = triple_pendulum_ODE(t,z,u,param)
     load('motion_equations.mat','fx');
 	z1 = z(1);
 	z2 = z(2);
@@ -10,6 +10,15 @@ function dz = three_dof_arm_cart_dyn_for_ODE(t,z,u,l1,l2,l3,m1,m2,m3,M,g)
 	z8 = z(8);
 
 	u1 = u;
+
+    l1 = param.l1;
+    l2 = param.l2;
+    l3 = param.l3;
+    m1 = param.m1;
+    m2 = param.m2;
+    m3 = param.m3;
+    M  = param.M;
+    g  = param.g;
 
 	% These equations are derived from the file Symb_Development_3DOF
 	dz1 = z2;

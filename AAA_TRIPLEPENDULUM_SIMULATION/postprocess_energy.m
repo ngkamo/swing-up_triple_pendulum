@@ -1,7 +1,6 @@
 %--------------------------------------------------------------------------
-% This function computes the potential and the kinectic energy during the 
+% This function computes the potential and the kinectic energy during the
 % simulation of the triple pendulum
-% Edited on 13th December 2016
 %--------------------------------------------------------------------------
 
 function [PE, KE] = postprocess_energy(z,param)
@@ -13,25 +12,6 @@ m2 = param.m2;
 m3 = param.m3;
 M  = param.M;
 g  = param.g;
-% p0x = z(:,1);
-% x1  = z(:,1) + l1*sin(z(:,3));
-% y1  = -l1*cos(z(:,3));
-% x2  = x1 + l2*sin(z(:,5));
-% y2  = y1 - l2*cos(z(:,5));
-% x3  = x2 + l3*sin(z(:,7));
-% y3  = y2 - l3*cos(z(:,7));
-
-% xd = z(:,2);
-% x1d = xd + l1*cos(z(:,3)).*z(:,4);
-% y1d = l1*sin(z(:,3)).*z(:,4);
-% x2d = x1d + l2*cos(z(:,5)).*z(:,6);
-% y2d = y1d + l2*sin(z(:,5)).*z(:,6);
-% x3d = x2d + l3*cos(z(:,7)).*z(:,8);
-% y3d = y2d + l3*sin(z(:,7)).*z(:,8);
-
-% v1sq = x1d.^2 + y1d.^2;
-% v2sq = x2d.^2 + y2d.^2;
-% v3sq = x3d.^2 + y3d.^2;
 
 x = z(:,1);      xd = z(:,2);
 theta1 = z(:,3); theta1d = z(:,4);

@@ -1,21 +1,21 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
 % Linearize around a given position
 % Check the controlability of the system around the linearized position
 % Return the matrix K
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
 
 function K=LQR_controller(z,u)
   %%%%%%%% LINEARIZATION OF THE SYSTEM %%%%%%%%
   % Loading state-space model and parameters
+  load('setup.mat')
   load('state_space_symb.mat')
-  l1 = 1;     l2 = 1;     l3 = 1;  % length of the links
-  m1 = 1;     m2 = 1;     m3 = 1;  % masses at the end of each link
-  M  = 1;                          % mass of the cart
-  g  = 9.8;
+  l1 = param.l1;  l2 = param.l2;  l3 = param.l3;  % length of the links
+  m1 = param.m1;  m2 = param.m2;  m3 = param.m3;  % masses at the end of each link
+  M  = param.M;                          % mass of the cart
+  g  = param.g;
   u1 = u;
 
   % Linearizing around the following configuration
-%   z = [0 0 pi/2 0 pi/2 0 pi/2 0];
   z1 = z(1); z2 = z(2);
   z3 = z(3); z4 = z(4);
   z5 = z(5); z6 = z(6);

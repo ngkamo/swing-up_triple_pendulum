@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Example of a stabilization of the triple
+% pendulum with designed LQR controller
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 close all; clear; clc
 
 load('state_space_symb.mat');
@@ -37,10 +42,8 @@ Cc = C;
 Dc = D;
 
 sys_cl = ss(Ac,Bc,Cc,Dc);
-% y = [0 0 0 0 0 0 0 0];
-% y = [0 0 -0.1 0 -0.1 0 -0.1 0];
-y = [-0.1948    0.1779   -0.4897    1.1133   -0.2974    0.6588   -0.4105    0.2335];
-t = 0:0.01:5;
+y = [0 0 -0.1 0 -0.1 0 -0.1 0];
+t = 0:0.001:5;
 r =0*ones(size(t));
 [y,t,x]=lsim(sys_cl,r,t,y);
 
@@ -49,7 +52,7 @@ l1 = 1; l2 = 1; l3 = 1;
 figure('Units','centimeters');
 pos = get(gcf, 'Position');
 for i=1:size(t,1)
-    if(mod(i,50)==0)
+    if(mod(i,50)==1)
         clf;
         p0x = y(i,1);
         p0y = 0;
@@ -84,42 +87,3 @@ for i=1:size(t,1)
         pause(0.01);
     end
 end
-
-
-%%
-close all
-figure(3)
-u = K*x';
-plot(t,u','LineWidth',2)
-title('Input from the controller')
-xlabel('Time [s]')
-
-set(gca, 'FontSize', 13, 'LineWidth', 1, ...
-    'XMinorTick','on', 'YMinorTick','on', ...
-    'XGrid','on', 'YGrid','on', ...
-    'FontName','Roboto Condensed', ...
-    'TickLength',[0.02 0.02]);
-set(gcf,'InvertHardcopy','on', 'PaperUnits','centimeters');
-
-%%
-figure(4)
-yyaxis left
-plot(t,y(:,1),'LineWidth',2)
-ylabel('Position of the cart [m]')
-set(gca, 'FontSize', 13, 'LineWidth', 1, ...
-    'XMinorTick','on', 'YMinorTick','on', ...
-    'XGrid','on', 'YGrid','on', ...
-    'FontName','Roboto Condensed', ...
-    'TickLength',[0.02 0.02]);
-
-yyaxis right
-plot(t,[y(:,2) y(:,3) y(:,4)],'LineWidth',2)
-ylabel('Angles of the links [rad]')
-set(gca, 'FontSize', 13, 'LineWidth', 1, ...
-    'XMinorTick','on', 'YMinorTick','on', ...
-    'XGrid','on', 'YGrid','on', ...
-    'FontName','Roboto Condensed', ...
-    'TickLength',[0.02 0.02]);
-legend({'$\dot x_{cart}$' '$\dot\theta_1$' '$\dot\theta_2$' '$\dot\theta_3$'},'Interpreter','latex','FontSize', 14,'Location','southeast')
-title('Position and angles of the triple pendulum')
-set(gcf,'InvertHardcopy','on', 'PaperUnits','centimeters');

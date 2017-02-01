@@ -8,12 +8,9 @@
 clear; close all; clc;
 
 %%%%%%%%% DEFINITIONS OF THE PARAMETERS %%%%%%%%%
-k1 = 0.5;   k2 = 6;                       % constants for the PD controller
-% k1 = 3; k2 = 12;
-param = struct('l1',1,'l2',1,'l3',1, ...  % length of the links
-        'm1',1,'m2',1,'m3',1,'M',1,....   % masses
-        'g',9.8);
-u=0;
+k1 = 0.5;   k2 = 6;     % constants for the PD controller
+load('setup.mat')       % loading parameters of the system
+u = 0;
 
 %%%%% SETTING PARAMETERS FOR THE ODE SOLVER %%%%%
 init_t = 0;
@@ -23,13 +20,8 @@ N = (final_t-init_t)/dt;
 t_span = init_t:dt:final_t-dt;
 
 %%%%%%%%%%%%% INITIAL CONDITIONS %%%%%%%%%%%%%%%%
-x0 = [0 0 -0.015 -0.4 -0.015 -0.6 -0.015 -0.6]'; %generate trajectory
-% x0 = [0 0 -pi/2 0 -pi/2 0 -pi/2 0 ]';
-% x0 = zeros(8,1);
+x0 = [0 0 -0.015 -0.4 -0.015 -0.6 -0.015 -0.6]'; %initial position
 
-% zhistory1 = zeros(N,8);
-% uhistory  = zeros(N,1);
-% t_history = zeros(N,1);
 zhistory1 = [];
 uhistory1  = [];
 t_history = [];
@@ -40,14 +32,12 @@ options = odeset('abstol',1e-9,'reltol',1e-9);
 xprec = x0;
 for i =1:N
     clc;
-    fprintf('%d / %d',i,N);
+    fprintf('Iteration n°%d / %d',i,N);
     [t1,z1] = ode45(@triple_pendulum_ODE, [0 dt 0.05], ...
         xprec,options,u,param);
+    
     u = -k1*z1(2,1)-k2*z1(2,2);
 
-    % uhistory(i)    = u;
-    % t_history(i)   = t1(2);
-    % zhistory1(i,:) = z1(2,:);
     zhistory1 = [zhistory1; z1(2,:)];
     uhistory1 = [uhistory1 u];
     t_history = [t_history t1(2)];

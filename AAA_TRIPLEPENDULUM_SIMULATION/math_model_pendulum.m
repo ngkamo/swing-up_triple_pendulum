@@ -1,23 +1,20 @@
-% Angles down zero
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mathematical modeling of the triple pendulum
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Angle up zero
 clear; clc
 
 syms M m1 m2 m3;
 syms x xd xdd theta1 theta1d theta1dd theta2 theta2d theta2dd theta3 theta3d theta3dd;
 syms l1 l2 l3;
-syms u1;
+syms u1 u2 u3 u4;
 syms g;
 
-% x1 = x + l1/2*sin(theta1);
-% y1 = -l1/2*cos(theta1);
-% x2 = x + l1*sin(theta1) + l2/2*sin(theta2);
-% y2 = -l1*cos(theta1) - l2/2*cos(theta2);
-% x3 = x + l1*sin(theta1) + l2*sin(theta2) + l3/2*sin(theta3);
-% y3 = -l1*cos(theta1) - l2*cos(theta2) - l3/2*cos(theta3);
-
 %%%%%%%%%%%%%%%%%%% POSITION OF CENTER OF MASS %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-p1 = [x + l1/2*sin(theta1); -l1/2*cos(theta1)];
-p2 = [x + l1*sin(theta1) + l2/2*sin(theta2); -l1*cos(theta1) - l2/2*cos(theta2)];
-p3 = [x + l1*sin(theta1) + l2*sin(theta2) + l3/2*sin(theta3); -l1*cos(theta1) - l2*cos(theta2) - l3/2*cos(theta3)];
+p1 = [x - l1/2*sin(theta1); l1/2*cos(theta1)];
+p2 = [x - l1*sin(theta1) - l2/2*sin(theta2); l1*cos(theta1) + l2/2*cos(theta2)];
+p3 = [x - l1*sin(theta1) - l2*sin(theta2) - l3/2*sin(theta3); l1*cos(theta1) + l2*cos(theta2) + l3/2*cos(theta3)];
 
 %%%%%%%%%%%%%%%%%%%%% SPEED OF CENTER OF MASS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p1d = diff(p1,x)*xd + diff(p1,theta1)*theta1d;
@@ -99,14 +96,18 @@ fx4 = simplify(fx4);
 
 fx = [fx1 fx2 fx3 fx4];
 
-%%
-feq1 = xd;
-feq2 = eqx1;
-feq3 = theta1d;
-feq4 = eqx2;
-feq5 = theta2d;
-feq6 = eqx3;
-feq7 = theta3d;
-feq8 = eqx4;
+%%%%%%%%%%%%%%%%%%%%% LINEARIZATION A & B %%%%%%%%%%%%%%%%%%%%%
+syms u1 z1 z2 z3 z4 z5 z6 z7 z8;
+feq1 = z2;
+feq2 = subs(fx1, {x,xd,theta1,theta1d,theta2,theta2d,theta3,theta3d}, {z1,z2,z3,z4,z5,z6,z7,z8});
+feq3 = z4;
+feq4 = subs(fx2, {x,xd,theta1,theta1d,theta2,theta2d,theta3,theta3d}, {z1,z2,z3,z4,z5,z6,z7,z8});
+feq5 = z6;
+feq6 = subs(fx3, {x,xd,theta1,theta1d,theta2,theta2d,theta3,theta3d}, {z1,z2,z3,z4,z5,z6,z7,z8});
+feq7 = z8;
+feq8 = subs(fx4, {x,xd,theta1,theta1d,theta2,theta2d,theta3,theta3d}, {z1,z2,z3,z4,z5,z6,z7,z8});
 
-A = jacobian([feq1; feq2; feq3; feq4; feq5; feq6; feq7; feq8], [x xd theta1 theta1d theta2 theta2d theta3 theta3d]);
+A = jacobian([feq1; feq2; feq3; feq4; feq5; feq6; feq7; feq8], [z1 z2 z3 z4 z5 z6 z7 z8]);
+B = jacobian([feq1; feq2; feq3; feq4; feq5; feq6; feq7; feq8], u1);
+
+save('state_space_symb.mat','A','B')

@@ -1,6 +1,6 @@
+% Plots used for the report
 
-zhistory = zhistory1;
-%%
+%% Input
 plt = Plot(t_span,uinput_reversed(1,:))
 plt.XLabel = 'Time, t [s]';
 plt.YLabel = 'Input force [N]';
@@ -10,7 +10,7 @@ plt.BoxDim = [4, 3];
 plt.XGrid = 'on';
 plt.YGrid = 'on';
 
-%%
+%% Angles, position
 close all
 plt2 = Plot(t_span,[zhistory(:,1) zhistory(:,3) zhistory(:,5) zhistory(:,7)])
 % lgd1 = legend('$x_{cart}$','$\theta_1$','$\theta_2$','$\theta_3$')
@@ -22,7 +22,7 @@ plt2.BoxDim = [4, 3];
 plt2.LegendBox = 'on';
 grid on
 
-%% Variation of the total energy free falling simulation
+%% Variation of the total energy free falling simulation (check model)
 close
 TE_diff = diff(KE+PE);
 figure('Units','centimeters')

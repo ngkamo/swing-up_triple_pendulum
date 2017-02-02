@@ -6,7 +6,7 @@
 \newcommand{\myTitle}{Swing-up of a triple arm inverted pendulum\xspace}
 \newcommand{\mySubtitle}{Master semester project\xspace}
 \newcommand{\myDegree}{Master of science of Mechanical engineering\xspace}
-\newcommand{\myName}{Frederic Nguyen\xspace}
+\newcommand{\myName}{Frédéric Nguyen\xspace}
 \newcommand{\myProf}{Philipe Müllhaupt\xspace}
 \newcommand{\mySupervisor}{Ehsan Sarshari\xspace}
 \newcommand{\myFaculty}{Laboratoire d'automatique\xspace}
@@ -24,8 +24,8 @@
 %-----------------------------------------------
 \begin{document}
 \renewcommand{\headheight}{14.5pt}
-\renewcommand{\tablename}{Table}
-\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{TABLE}
+\renewcommand{\figurename}{FIGURE}
 
 % Title page
 \hypersetup{pageanchor=false}
@@ -40,7 +40,7 @@
 %---------------------------------------------------------------
 \pagenumbering{roman}
 \begin{abstract}
-In this report, the subject of the swing-up control of a triple arm inverted pendulum is approached. The swing-up strategy uses a time-reversal strategy. It is based on reproducing the reversed behaviour of a known desired trajectories of a falling triple pendulum. The focuses handled are the mathematical modeling of the triple pendulum, the elaboration of a controller for tracking a planned motion and the simulation of the swing-up phase by using the described strategy in MATLAB environment.
+In this report, the subject of the swing-up control of a triple arm inverted pendulum is approached. The swing-up strategy uses a time-reversal strategy. It is based on reproducing the reversed behavior of a known desired trajectories of a falling triple pendulum. The handled focuses are the mathematical modeling of the triple pendulum, the elaboration of a controller for tracking a planned motion and the simulation of the swing-up phase by using the described strategy in MATLAB environment.
 
 \noindent
 \textbf{Keywords: }Triple pendulum, swing-up, time-reversal strategy, LQR controller
@@ -59,15 +59,11 @@ In this report, the subject of the swing-up control of a triple arm inverted pen
 %	INTRODUCTION
 %---------------------------------------------------------------
 \section{Introduction}\label{sec:intro} %ABSTRACT
-The triple arm inverted pendulum is a typical problem in the control system field. Since it has less actuators than degrees of freedom, this under-actuated system constitutes an excellent test bench for testing and evaluating many types of controllers. Moreover its non-linearity, a dynamics behaviour governed by coupled ordinary differential equations make the regulation task complicated.
+The triple arm inverted pendulum is a typical problem in the control system field. Since it has less actuators than degrees of freedom, this under-actuated system constitutes an excellent test bench for testing and evaluating many types of controllers. In addition to its non-linearity, a dynamics behavior governed by coupled ordinary differential equations make the regulation task complicated.
 
 When approaching the regulation of an inverted pendulum, there is a need to separate it in two tasks: the stabilization and the swing-up. Each of these tasks have seen numerous contributions and these contributions reflects the diversity of control techniques. For example the stabilization task is handled with a state feedback design by \citet{Medrano1997} or with a controller based on the LQR method designed by \citet{Gupta2014}. The swing-up task has also seen noticeable improvements provided by the papers from \citet{Astrom2000287} and \citet{Gluck2013801}.
 
-This study aims to evaluate the feasibility of the swing-up strategy for the triple arm inverted pendulum. It will begin with a mathematical modeling of the system. Then some concepts such as controllability of a system and design of LQR controllers are discussed in this report. Finally, simulations from the MATLAB environment of the swing-up phase are presented. The project is restricted to pure simulations studies.
-
-% The swing-up of a triple arm inverted pendulum is presented. The main focus of this semester project is to simulate a strategy for the swing-up of the pendulum. The goal of this project is to provide a solution for the swing-up of a triple arm inverted pendulum.
-% restricted to pure simulations studies.
-% This project is based on the use of symbolic math toolbox and numeric simulations on MATLAB
+This study aims to evaluate the feasibility of the swing-up strategy for the triple arm inverted pendulum. It will begin with a mathematical modeling of the system. Then some concepts such as the controllability of a system and design of LQR controllers are discussed in this report. Finally, simulations from the MATLAB environment of the swing-up phase are presented. The project is restricted to pure simulations studies.
 
 %---------------------------------------------------------------
 %	PRINCIPLE OF THE SWING-UP STRATEGY
@@ -79,18 +75,18 @@ This study aims to evaluate the feasibility of the swing-up strategy for the tri
 	\label{fig:swingup_strategy}
 \end{figure}
 \section{Principle of the swing-up strategy}
-The main focus of this project is the swing-up phase of the pendulum. This phase consists in leading the cart of the triple pendulum from the stable equilibrium to an unstable equilibrium where all the arms are in the upright position. 
+The main focus of this project is the swing-up phase of the pendulum. This phase consists in leading the cart of the triple pendulum from the stable equilibrium to an unstable equilibrium where all the arms are in the upright position.
 
-The principle is resumed in \autoref{fig:swingup_strategy}. The first step (phases 1 and 2) is to let fall the triple pendulum from its unstable equilibrium to its stable equilibrium. A PD controller which applies to the cart acts as a damper. Meanwhile the falling of the three links, their angles and angular velocities are recorded (phases 2 and 3) as well as the position and velocity of the cart, and the input of the PD controller. The recording is stopped after a certain time or until the triple pendulum is stabilized. Then the logged input PD controller is reversed (phase 3) and implemented to the triple pendulum for the swing-up. The system have the same behaviour recorded previously but in the reversed time or way (phase 6). 
+The principle is resumed in \autoref{fig:swingup_strategy}. The first step (phases 1 and 2) is to let fall the triple pendulum from its unstable equilibrium to its stable equilibrium. A PD controller which applies to the cart acts as a damper. Meanwhile the falling of the three links, their angles and angular velocities are recorded (phases 2 and 3) as well as the position and velocity of the cart, and the input of the PD controller. The recording is stopped after a certain time or until the triple pendulum is stabilized. Then the logged input PD controller is reversed (phase 3) and implemented to the triple pendulum for the swing-up. The system will have the same behavior recorded previously but in the reversed time (phase 5 and 6).
 
 %---------------------------------------------------------------
 %	MODELING OF THE TRIPLE PENDULUM
 %---------------------------------------------------------------
 \section{Modeling of the triple pendulum}
-For the purpose of this project, it is required to develop the equations of motion of the triple pendulum system. A \emph{Lagrangian approach} is used for the modeling of the triple pendulum. The obtained model is linearized around operating configuration such as the down and up configuration. In the following pages, vector and matrix quantities are identified in bold characters.
+For the purpose of this project, it is required to develop the equations of motion of the triple pendulum system. A \emph{Lagrangian approach} is used for the modeling of the triple pendulum. The obtained model is linearized around operating configuration such as the down configuration. In the following pages, vector and matrix quantities are identified in bold characters.
 
 \subsection{Description of the triple pendulum}
-The pendulum consists in three links mounted on a cart. The cart is driven on a rail track. It is the only actuated part of the system. The other parts are free to move in their degree of freedom. For each link, a length and a mass is defined. The links are supposed to be made of homogeneous material so the gravity center for each one are on the geometrical middle of each bars. The viscous frictions in the bears of the cart and the links are neglected for the modeling of the triple pendulum.
+The pendulum consists in three links mounted on a cart. The cart is driven on a rail track. It is the only actuated part of the system. The other parts are free to move in their degree of freedom. For each link, a length and a mass is defined. The links are supposed to be made of homogeneous material so the gravity center for each one are on the geometrical middle of each bar. The viscous frictions in the bears of the cart and the links are neglected for the modeling of the triple pendulum.
 
 A schematic representation of the system is showed in \autoref{fig:schematic_system}. The dispositions of the positions and angles, and the coordinate system are showed in \autoref{fig:schematic_system}; they will be used for the modeling of the pendulum.
 \begin{figure}[ht]
@@ -105,7 +101,7 @@ Since the triple pendulum is a 4-degree-of-freedom system, there are four genera
 	x_{cart}\to q_1, \qquad \theta_1\to q_2, \qquad \theta_2\to q_3, \qquad \theta_3\to q_4
 \]
 
-The parameters of the system are given values in \autoref{tab:parameters_system} and will be used for every numerical simulation of the triple pendulum.
+The parameters of the system are given values in \autoref{tab:parameters_system} and will be used for each numerical simulation of the triple pendulum.
 \begin{table}[H]
 	\centering
 	\caption{Parameters for the following simulations}
@@ -120,9 +116,9 @@ The parameters of the system are given values in \autoref{tab:parameters_system}
 		Length of first arm   & $l_1$                       & 1      & m                            \\
 		Length of second arm  & $l_2$                       & 1      & m                            \\
 		Length of third arm   & $l_3$                       & 1      & m                            \\
-		Inertia of first arm  & $J_1=\frac{m_1\,l_1^2}{12}$ & 0.0416 & \si{\kilo\gram\square\metre} \\
-		Inertia of second arm & $J_2=\frac{m_2\,l_2^2}{12}$ & 0.0416 & \si{\kilo\gram\square\metre} \\
-		Inertia of third arm  & $J_3=\frac{m_3\,l_3^2}{12}$ & 0.0416 & \si{\kilo\gram\square\metre} \\
+		Inertia of first arm  & $J_1=\frac{m_1\,l_1^2}{12}$ & 0.0833 & \si{\kilo\gram\square\metre} \\
+		Inertia of second arm & $J_2=\frac{m_2\,l_2^2}{12}$ & 0.0833 & \si{\kilo\gram\square\metre} \\
+		Inertia of third arm  & $J_3=\frac{m_3\,l_3^2}{12}$ & 0.0833 & \si{\kilo\gram\square\metre} \\
 		Constant of gravity   & $g$                         & 9.81   & \si{m\per\square\second}     \\ \bottomrule
 	\end{tabular}
 \end{table}
@@ -191,7 +187,7 @@ The Lagrange's equations obtained with (\ref{equ:Lagrange_motions}) are:
 -\tfrac{1}{6}\big[l_3 m_3 (3 l_1 \sin(\theta_1 - \theta_3) \dot\theta_1^2 + 3 l_2 \sin(\theta_2 - \theta_3) \theta_2d^2 - 2 l_3 \ddot\theta_3 + 3 g \sin(\theta_3) + 3 \ddot x cos(\theta_3) \\
 - 3 l_1 \ddot\theta_1 \cos(\theta_1 - \theta_3) - 3 l_2 \ddot\theta_2 \cos(\theta_2 - \theta_3))\big] = 0
 \end{multline}
-By arranging the four equations with the symbolic math toolbox from MATLAB, the expressions of second order derivative of each generalized coordinate are found. 
+By arranging the four equations with the symbolic math toolbox from MATLAB, the expressions of second order derivative of each generalized coordinate are found.
 \begin{equation} \label{equ:2nd_order_system}
 	\left\{
 	\begin{array}{*{20}{c}}
@@ -235,23 +231,22 @@ with the second order derivative $\ddot q_i,\; i=1,2,3,4$ obtained in \eqref{equ
 \subsection{State-space formulation and linearization}
 Taking into account the non-linearities showed by \eqref{equ:model_final}, the utilization of regulators such as LQR arises difficulties when regulating the triple pendulum. These difficulties can be avoided by doing a linear approximation of the model. For the needs of the LQR controllers, the non-linear system is linearized at certains positions such as the equilibrium points (stable, unstable). The linearization is derived following the method described in the lecture notes of the ``Dynamical system'' course\footnote{ME-221 Systèmes dynamiques, EPFL 2014, D. BONVIN}. Since the triple pendulum is a MIMO case, the matrices $\mathbf{A}\text{ and }\mathbf{B}$ are the Jacobian matrices of $f_i$ \eqref{equ:model_final} with respect to $q_i$ and $u_1$, evaluated at a certain operating configuration of the pendulum $\bar q_i$ and $\bar u_1$:
 \[
-\mathbf{A} = {\left. {\left[ 
+\mathbf{A} = \left. {\left[
 {\begin{array}{*{20}{c}}
 \frac{\partial}{\partial {z_1}} f_1(\bar{\mathbf{z}},\bar u_1) & \cdots &\frac{\partial}{\partial {z_8}} f_1(\bar{\mathbf{z}},\bar u_1)\\
  \vdots & \ddots & \vdots \\
 \frac{\partial}{\partial {q_1}}f_8(\bar{\mathbf{z}},\bar u_1) & \cdots &\frac{\partial}{\partial {q_8}}f_8(\bar{\mathbf{z}},\bar u_1)
-\end{array}}
-\right]}
-\right|_{\bar u_1,\;\bar z_1,\ldots,\bar z_8}},\quad
-\mathbf{B} = {\left. {\left[ {\begin{array}{*{20}{c}}
+\end{array}}\right]}
+\right|_{\bar u_1,\;\bar{\mathbf{z}}},\quad
+\mathbf{B} = \left. {\left[ {\begin{array}{*{20}{c}}
 \frac{\partial}{\partial {u_1}}f_1(\bar{\mathbf{z}},\bar u_1)\\
  \vdots \\
 \frac{\partial}{\partial {u_1}}f_8(\bar{\mathbf{z}},\bar u_1)
-\end{array}} \right]} \right|_{\bar u_1, \bar z_1,\ldots,\bar z_8}}
+\end{array}} \right]} \right|_{\bar u_1, \bar{\mathbf{z}}}
 \]
 Matrices $\mathbf{C}$ and $\mathbf{D}$ are parts of the output of the pendulum. The matrix $\mathbf{C}$ has 4 rows because the cart's position and the links orientation constitutes the output of the system:
 \[
-\mathbf{C} = 
+\mathbf{C} =
 \begin{bmatrix}
 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
@@ -261,7 +256,7 @@ Matrices $\mathbf{C}$ and $\mathbf{D}$ are parts of the output of the pendulum. 
 \mathbf{D} = [0]
 \]
 Hence the state-space form is obtained:
-\begin{equation} 
+\begin{equation}
 	\begin{split}
 	\dot{\mathbf{z}} &= \mathbf{A}\; \mathbf{z} + \mathbf{B}\; u_1 \\
 	\mathbf{y} &= \mathbf{C}\; \mathbf{z} + \mathbf{D}\; u_1
@@ -269,7 +264,7 @@ Hence the state-space form is obtained:
 \end{equation}
 
 \subsection{Verification of the Lagrange model}
-As a verification of the model obtained in \autoref{sec:mathmodel}, it is proposed to check the variation of the total energy of the triple inverted pendulum. The definitions of the kinetic energy \autoref{equ:kinetic} and potential energy \autoref{equ:potential} are reused to obtain the total energy. The variation of the total energy should be nearly zero in the absence of external forces. In \autoref{fig:checkmodel_var}, the variation of the total energy is of the order of magnitude \num{e-8} which ensure that the mathematical model is correct:
+As a verification of the model obtained in \autoref{sec:mathmodel}, it is proposed to check the variation of the total energy of the triple inverted pendulum. The definitions of the kinetic energy \eqref{equ:kinetic} and potential energy \eqref{equ:potential} are reused to obtain the total energy. The variation of the total energy should be nearly zero in the absence of external forces. In \autoref{fig:checkmodel_var}, the variation of the total energy is of the order of magnitude \num{e-8} which ensure that the mathematical model is correct:
 \[
 E_{total,k-1}-E_{total,k} \approx 0
 \]
@@ -285,7 +280,7 @@ E_{total,k-1}-E_{total,k} \approx 0
 %---------------------------------------------------------------
 \section{LQR controller}
 \subsection{Brief overview of theory}
-The main focus of the LQR controller is to handle both the limitation of the control signal $u$ and a fast transient phase for the system. A general block diagram of an LQR regulation is shown in \autoref{fig:block_dia_LQR}. It relies on minimizing a quadratic cost function $J$ which contains the states $\mathbf{z}$ and input $u$. In other words, the optimal regulation is likely to find a control input $u_1(t)$, $t\in[0,\infty[$ to the system dynamics in continuous time 
+The main focus of the LQR controller is to handle both the limitation of the control signal $u$ and a fast transient phase for the system. A general block diagram of an LQR regulation is shown in \autoref{fig:block_dia_LQR}. It relies on minimizing a quadratic cost function $J$ which contains the states $\mathbf{z}$ and input $u$. In other words, the optimal regulation is likely to find a control input $u_1(t)$, $t\in[0,\infty[$ to the system dynamics in continuous time
 \[\dot{\mathbf{z}}=\mathbf{A}\,\mathbf{z}+\mathbf{B}\,u_1\]
 that minimizes the cost function:
 \[
@@ -299,7 +294,7 @@ where $\mathbf{K}$ is given by $K=r^{-1}\,\mathbf{B}^T\mathbf{P}$. The matrix $\
 \]
 
 The command \texttt{[K,P,E]=lqr(A,B,Q,R)} from MATLAB solves the Riccati equation and finds the optimal matrix gain $\mathbf{K}$.
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=13cm]{illustrations/block_dia_LQR.pdf}
 	\caption{Block diagram of an LQR control system type with full state feedback}
@@ -307,9 +302,9 @@ The command \texttt{[K,P,E]=lqr(A,B,Q,R)} from MATLAB solves the Riccati equatio
 \end{figure}
 
 \subsection{Controllability}
-The satisfaction of the controllability property is crucial for designing a controller such as the LQR. It means that there exists a finite control input $u_1$ that the states of the system can be brought at any desired values $\mathbf{z}(t)$ from any initial values $\mathbf{z}_0$. For a system to be controllable, the rank of the controllability matrix $\mathcal{C}\in\mathbb{R}^{n\times n}$ must be equal to the number $n$ of state variable of the system ($n=8$ in the case of the triple pendulum).
+The satisfaction of the controllability property is crucial for designing a controller such as the LQR. It means that there exists a finite control input $u_1$ that the states of the system can be brought at any desired values $\mathbf{z}(t)$ from any initial values $\mathbf{z}_0$. For a system to be controllable, the rank of the controllability matrix $\mathcal{C}\in\mathbb{R}^{n\times n}$ must be equal to the number $n$ of state variables of the system ($n=8$ in the case of the triple pendulum).
 \[ \text{rank}\left(\mathcal{C}\right) = \text{rank}\Big(\left[ \mathbf{B|AB|A}^2\mathbf{B}|\cdots|\mathbf{A}^{n-1}\mathbf{B} \right]\Big) =n \]
-The controllability matrix can be computed using the MATLAB function \texttt{Co=ctrb(A,B)}. Concerning the rank of the controllability matrix, it can be found by using the function \texttt{n=rank(Co)}. One can also compute its singular value decomposition and count the number of nonzero values in order to check the controllability of the system.
+The controllability matrix can be computed using the MATLAB function \texttt{Co=ctrb(A,B)}. Concerning the computation of the rank of the controllability matrix, it can be found by using the function \texttt{n=rank(Co)}. One can also compute its singular value decomposition and count the number of nonzero values in order to check the controllability of the system.
 
 %---------------------------------------------------------------
 %	SWING-UP OF THE TRIPLE PENDULUM
@@ -318,9 +313,9 @@ The controllability matrix can be computed using the MATLAB function \texttt{Co=
 The strategy chosen for the swing-up maneuver is based on reproducing the exact reversed behaviour of a falling triple pendulum.
 
 \subsection{Generation of a downward trajectory} \label{sec:down_trajectory}
-The necessary step of the swing-up maneuver is the planning of a motion that has to be followed. The trajectory is generated by recording the variation of the generalized coordinates during a falling of the triple pendulum. Before the record begins, the pendulum is placed in the configuration desired at the end of the swing-up maneuver. 
+The necessary step of the swing-up maneuver is the planning of a motion that has to be followed. The trajectory is generated by recording the variation of the generalized coordinates during a falling of the triple pendulum. Before the record begins, the pendulum is placed in the configuration desired at the end of the swing-up maneuver.
 
-Since there is no friction in the pendulum, a proportional derivative controller is implemented to the cart. \autoref{fig:block_PD_cart} shows the implementation of the PD controller in the system. This controller will act as a spring and a damping component in order to dissipate the initial potential energy given by the upward initial configuration. The parameters of the PD controller and the initial configuration of the system are tuned such as during the falling, each link does not rotate several times on itself. With trial and error procedure, an ideal trajectory is found with appropriate parameters for the PD controller ($k_p=\num{0.3}\text{ and } k_i=\num{6.5}$) and the initial configuration ($\mathbf{z} = [0,0,0,\num{-0.4},0,\num{-0.6},0,\num{-0.6}]^\text{T}$). At the end of the generation of a trajectory, the history of variations of the generalized coordinates and the force applied on the cart by the controller are saved. They will be used for the swing-up maneuver.
+Since there is no friction in the pendulum, a proportional derivative controller is implemented to the cart. \autoref{fig:block_PD_cart} shows the implementation of the PD controller in the system. This controller will act as a spring and a damping component in order to dissipate the initial potential energy given by the upward initial configuration. The parameters of the PD controller and the initial configuration of the system are tuned such as during the falling, each link does not rotate several times on itself. With trial and error procedure, an ideal trajectory is found with appropriate parameters for the PD controller ($k_p=\num{0.3}\text{ and } k_i=\num{6.5}$) and the initial configuration ($\mathbf{z} = [0,0,0.015,\num{-0.4},0.015,\num{-0.6},0.015,\num{-0.6}]^\text{T}$). At the end of the generation of a trajectory, the history of variations of the generalized coordinates and the force applied on the cart by the controller are saved. They will be used for the swing-up maneuver.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=15cm]{illustrations/block_PD_cart.pdf}
@@ -339,10 +334,21 @@ At the end of this swing-up, the triple pendulum should have the same configurat
 \]
 
 \subsection{Swing-up maneuver with different initial conditions}
-As the triple pendulum exhibits a hyperchaotic behaviour, a slight variation of initial conditions for the swing-up phase can lead to another complete configuration at the end of the swing-up maneuver. An idea is to reduce the initial deviation during the first seconds so that it is possible to catch the planned motion. To solve this issue, the implementation of an LQR is considered in order to fulfil the task.
+As the triple pendulum exhibits a hyperchaotic behaviour, a slight variation of initial conditions for the swing-up phase can lead to another complete configuration at the end of the swing-up maneuver. An idea is to reduce the initial deviation during the first seconds so that it is possible to catch the planned motion. To solve this issue, the implementation of an LQR is considered in order to fulfil the task. An explaination of its role is shown in \autoref{fig:lqr_catch}. During the first seconds of the swing-up phase, the LQR regulator is activated. When the behavior of the triple pendulum is in line with the planned trajectory, the LQR regulator can be deactivated. 
 
-The operating point of the LQR controller is set at the stable equlibrium ($\mathbf{z}_{eq}=[0\;0\;0\;0\;0\;0\;0\;0]^T$) of the triple pendulum. 
+The operating point of the LQR controller is set at the stable equlibrium of the triple pendulum:
+\[\mathbf{z}_{eq}=[0,\,0,\,-\pi,\,0,\,-\pi,\,0,\,-\pi,\,0]^T\]
+When the LQR regulator is activated, the input given to the system is
+\[u_1(i)=u_{1,\text{reversed}}(i) + \mathbf{K}\cdot[\mathbf{z}(i)-\mathbf{z}_{\text{reversed}}(i)]^T\]
+where $u_{1,\text{reversed}}$ is the time-reversed recorded input, $\mathbf{K}$ is the gain matrix, $\mathbf{z}$ is the current configuration and $\mathbf{z}_{\text{reversed}}$ is the recorded configuration.
 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{illustrations/lqr_catch-03.eps}
+	\caption{Role of the LQR}
+	\label{fig:lqr_catch}
+\end{figure}
 
 %\subsection{Stabilization}
 
@@ -361,7 +367,7 @@ A trajectory is generated by setting the initial condition found in \autoref{sec
         \includegraphics[width=1\textwidth]{graph_output_motion_plan}
         \caption{Output force of the PD controller}
     \end{subfigure}%
-    ~ 
+    ~
     \begin{subfigure}[t]{0.46\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{graph_kineticpotential_energy_PD}
@@ -379,7 +385,7 @@ A trajectory is generated by setting the initial condition found in \autoref{sec
         \includegraphics[width=1\textwidth]{graph_speed_motion_plan}
         \caption{Speed and angular speed}
     \end{subfigure}
-    \caption{Simulation of a falling triple pendulum with initial conditions $\mathbf{z} = [0,0,0,\num{-0.4},0,\num{-0.6},0,\num{-0.6}]^\text{T}$}
+    \caption{Simulation of a falling triple pendulum with initial conditions \\$\mathbf{z} = [0,0,0,\num{-0.4},0,\num{-0.6},0,\num{-0.6}]^\text{T}$}
      \label{fig:result_gene}
 \end{figure}
 
@@ -393,7 +399,7 @@ It is observed in \autoref{fig:actualvsplannedinit} that even the exact initial 
         \includegraphics[width=1\textwidth]{illustrations/graph_swingup_pos_init.eps}
         \caption{Position and angles}
     \end{subfigure}%
-    ~ 
+    ~
     \begin{subfigure}[h]{0.48\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{illustrations/graph_swingup_speed_init.eps}
@@ -413,7 +419,7 @@ The trajectory resulted from modified initial conditions (by adding \SI{0.1}{\ra
         \includegraphics[width=1\textwidth]{illustrations/graph_error_init.eps}
         \caption{Exact initial conditions}
     \end{subfigure}%
-    ~ 
+    ~
     \begin{subfigure}[h]{0.48\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{illustrations/graph_error_mod.eps}
@@ -426,7 +432,7 @@ The trajectory resulted from modified initial conditions (by adding \SI{0.1}{\ra
 \paragraph{Different initial conditions}
 In order to handle initial conditions different from the planned trajectory, an LQR is applied for the first 10 seconds. The linearized state-space model is done around $\mathbf{z}_{LQR}=[0,\,0,\,-\pi,\, 0,\, -\pi,\,0,\,-\pi,\,0]^T$. Thus the matrices $\mathbf{A}$ and $\mathbf{B}$ obtained are:
 \begin{equation}
-\mathbf{A} = 
+\mathbf{A} =
 \begin{bmatrix}
  0 & 1 &        0 & 0 &        0 &      0 &        0 &      0 \\
  0 & 0 &  24.1343 & 0 &  -3.9493 &      0 &   0.4388 &      0 \\
@@ -453,23 +459,23 @@ The controllability condition is verified since $\text{rank}(\mathcal{C})=8$.
 Since there is no guideline for selecting the weighting coefficient $\mathbf{Q}$ and $R$, an adequate choice found is
 \begin{equation}
 \begin{split}
-\mathbf{Q}&=\text{diag}\big(100\quad0\quad100\quad0\quad100\quad0\quad100\quad0\big)\\
+\mathbf{Q}&=\text{diag}\big(100\quad0\quad1000\quad0\quad1000\quad0\quad1000\quad0\big)\\
 R&=0.5
 \end{split}
 \end{equation}
 The resulted gain matrix is given by
 \begin{equation}
-\mathbf{K}=\big[14.1421\quad12.6550\quad-18.0235\quad2.6144\quad-0.0900\quad1.2742\quad1.8248\quad0.3713\big]
+\mathbf{K}=\big[10,\;13.84,\;-59.65,\;-1.47,\;0.24,\;-3.02,\;4.73,\;-1.37\big]
 \end{equation}
 With initial conditions modified by adding \SI{0.1}{\radian} at each angle, the deviation in function of time is plotted in \autoref{fig:error_LQR}. One can observe that for the first 3 seconds, the LQR regulator achieves to catch up the planned trajectory.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=12cm]{illustrations/graph_error_LQR.eps}
-	\caption{Deviation from actual configuration and planned trajectory. The offset added to initial conditions is $\mathbf{z}_{0,offset}=[0,0,0.1,0,0.1,0,0.1,0]^T$.}
+	\caption{Deviation from current configuration and planned trajectory. The offset added to initial conditions is $\mathbf{z}_{0,\text{offset}}=[0,0,0.1,0,0.1,0,0.1,0]^T$.}
 	\label{fig:error_LQR}
 \end{figure}
 
-The sum of errors for each simulation are resumed in \autoref{tab:performance}
+The sum of errors for each simulation are resumed in \autoref{tab:performance}.
 \begin{table}[H]
 \centering
 \caption{Performance for each simulation}
@@ -477,9 +483,10 @@ The sum of errors for each simulation are resumed in \autoref{tab:performance}
 \begin{tabular}{|l|l|l|l|}
 \hline
 Initial conditions                       & Exact & Modified & Modified with LQR \\ \hline
-Sum of errors between actual and planned & 31.44 & 333.88   & 22.26             \\ \hline
+Sum of errors between actual and planned & 24.43 & 76.87    & 35.68             \\ \hline
 \end{tabular}
 \end{table}
+
 \newpage
 %---------------------------------------------------------------
 %	CONCLUSION
@@ -487,11 +494,11 @@ Sum of errors between actual and planned & 31.44 & 333.88   & 22.26             
 \section{Conclusion and recommendations}
 In the light of the above, the time-reversal strategy provides an interesting method for the swing-up of the triple pendulum. The forces involved for the swing-up maneuver is limited. This can be suitable for systems which requires smooth accelerations. However the time needed for the pendulum to switch to the up equilibrium is equal to the time needed for the pendulum to fall and stabilize. It is much more longer than other methods such as the one treated by \citet{Gluck2013801}. In their case, they achieved a transition time of \SI{3.5}{\second}.
 
-One downfall of this method is that the generation of a trajectory is not done in an automatically way. Any changes in the pendulum parameters require to adapt the initial conditions for the generation of an ideal trajectory. Also period for which the LQR regulator is applied is set manually according to the behaviour of the pendulum. A trial and error method is required for an ideal trajectory.
+One downfall of this method is that the generation of a trajectory is not done in an automatically way. Any changes in the pendulum parameters require to adapt the initial conditions for the generation of an ideal trajectory. Also period for which the LQR regulator is applied is set manually according to the behavior of the pendulum. A trial and error method is required for an ideal trajectory.
 
-The swing-up maneuver with exact initial conditions leads to a sgnificant deviation from the generated trajectory at the end of the phase. It should normally be exactly at the upright configuration at the end of the swing-up phase. However it is not the case and this might be due to numerical errors from the ODE function.
+The swing-up maneuver with exact initial conditions leads to a significant deviation from the generated trajectory at the end of the phase. It should normally be exactly at the upright configuration at the end of the swing-up phase. However it is not the case and this might be due to numerical errors from the ODE function.
 
-The single LQR applied for long periods in order to cope the deviations from planned trajectory is not adapted for this strategy. Indeed, since it is designed around an operating configuration, the linearized state-space model can not be correct during the first seconds. One mean of improvement is to design several LQRs along the trajectory with the purpose that several linearized state-space models along the time can approach the non-linear behaviour.
+The single LQR applied for long periods in order to cope the deviations from planned trajectory is not adapted for this strategy. Indeed, since it is designed around an operating configuration, the linearized state-space model can not be correct during the first seconds. One mean of improvement is to design several LQRs along the trajectory with the purpose that several linearized state-space models along the time can approach the non-linear behavior.
 
 %---------------------------------------------------------------
 %	APPENDIX
@@ -613,11 +620,12 @@ save('state_space_symb.mat','A','B')
 function K=LQR_controller(z,u)
   %%%%%%%% LINEARIZATION OF THE SYSTEM %%%%%%%%
   % Loading state-space model and parameters
+  load('setup.mat')
   load('state_space_symb.mat')
-  l1 = 1;     l2 = 1;     l3 = 1;  % length of the links
-  m1 = 1;     m2 = 1;     m3 = 1;  % masses at the end of each link
-  M  = 1;                          % mass of the cart
-  g  = 9.8;
+  l1 = param.l1;  l2 = param.l2;  l3 = param.l3;  % length of the links
+  m1 = param.m1;  m2 = param.m2;  m3 = param.m3;  % masses at the end of each link
+  M  = param.M;                          % mass of the cart
+  g  = param.g;
   u1 = u;
 
   % Linearizing around the following configuration
@@ -634,7 +642,8 @@ function K=LQR_controller(z,u)
   C(2,3) = 1;
   C(3,5) = 1;
   C(4,7) = 1;
-  D = 0;
+
+  D = zeros(4,1);
 
   %%%%%%%%%%%%%%% CONTROLABILITY OF THE LINEARIZED SYSTEM %%%%%%%%%%%%%%%
   Co = ctrb(A_lin,B_lin);
@@ -649,10 +658,11 @@ function K=LQR_controller(z,u)
   %%%%%%%%%%%%%%%%%% LQR CONTROLLER %%%%%%%%%%%%%%%%%%
   R = 1;
   Q = C'*C;
-  Q = diag([1 0 1 0 1 0 1 0]);
+  Q = diag([100 0 1000 0 1000 0 1000 0]);
 
   [K,P,E] = lqr(A_lin,B_lin,Q,R);
 end
+
 \end{lstlisting}
 
 \begin{description}
@@ -661,11 +671,9 @@ end
 \end{description}
 \begin{lstlisting}[label=code:simgenerate,caption=\texttt{sim\_generate\_motion.m}]
 %%%%%%%%% DEFINITIONS OF THE PARAMETERS %%%%%%%%%
-k1 = 0.3;   k2 = 6.5;           % constants for the PD controller
-param = struct('l1',1,'l2',1,'l3',1, ...        % length of the links
-        'm1',1,'m2',1,'m3',1,'M',1,....   % masses
-        'g',9.8);
-u=0;
+k1 = 0.5;   k2 = 6;     % constants for the PD controller
+load('setup.mat')       % loading parameters of the system
+u = 0;
 
 %%%%% SETTING PARAMETERS FOR THE ODE SOLVER %%%%%
 init_t = 0;
@@ -675,37 +683,38 @@ N = (final_t-init_t)/dt;
 t_span = init_t:dt:final_t-dt;
 
 %%%%%%%%%%%%% INITIAL CONDITIONS %%%%%%%%%%%%%%%%
-z0 = [0 0 0 -0.4 0 -0.6 0 -0.6]';
+x0 = [0 0 -0.015 -0.4 -0.015 -0.6 -0.015 -0.6]'; %initial position
 
-zhistory1 = zeros(N,8);
-uhistory1 = zeros(N,1);
-t_history = zeros(N,1);
+zhistory1 = [];
+uhistory1  = [];
+t_history = [];
 
 %%%%%%%%%%%%%%%%%% ODE SOLVER %%%%%%%%%%%%%%%%%%%
 options = odeset('abstol',1e-9,'reltol',1e-9);
 
-zprec = z0;
-u = 0;
-
+xprec = x0;
 for i =1:N
-    clc
-    fprintf('%d / %d',i,N);
-    [t1,z1] = ode113(@triple_pendulum_ODE, [0 dt 0.2], ...
-        zprec,options,u,param);
+    clc;
+    fprintf('Iteration n %d / %d',i,N);
+    [t1,z1] = ode45(@triple_pendulum_ODE, [0 dt 0.05], ...
+        xprec,options,u,param);
+    
     u = -k1*z1(2,1)-k2*z1(2,2);
-    uhistory1(i) = u;
-    t_history(i) = t1(2);
-    zhistory1(i,:) = z1(2,:);
-    zprec = z1(2,:);
+
+    zhistory1 = [zhistory1; z1(2,:)];
+    uhistory1 = [uhistory1 u];
+    t_history = [t_history t1(2)];
+    xprec = z1(2,:);
     if z1(2,1)>=4 || z1(2,1)<=-4
-        fprintf('ODE113 terminated, out of bounds');
+        fprintf('ODE45 terminated, out of bounds');
         break
     end
 end
-u0 = 0;
-zhistory1 = [z0'; zhistory1];
+
+zhistory1 = [x0'; zhistory1];
 zhistory1(end,:) = [ ];
 
+% Save trajectory and input u in a file
 save('trajectory_history.mat','zhistory1','uhistory1','t_history')
 \end{lstlisting}
 
@@ -746,6 +755,7 @@ function dz = triple_pendulum_ODE(t,z,u,param)
 	dz8 = (36*m2^2*u1*cos(2*z3 - z7) - 108*m2^2*u1*cos(2*z5 - z7) - 36*m2^2*u1*cos(z7) + [...]
 
 	dz = [dz1 dz2 dz3 dz4 dz5 dz6 dz7 dz8]';
+end
 \end{lstlisting}
 
 \begin{description}
@@ -754,10 +764,7 @@ function dz = triple_pendulum_ODE(t,z,u,param)
 \end{description}
 \begin{lstlisting}[label=code:simswingup,caption=\texttt{sim\_swingup\_motion.m}]
 %%%%%%%%% DEFINITIONS OF THE PARAMETERS %%%%%%%%%
-param = struct('l1',1,'l2',1,'l3',1, ...        % length of the links
-        'm1',1,'m2',1,'m3',1,'M',1,....   % masses
-        'g',9.8);
-k1 = 0.5;   k2 = 4;              % constants for the PD controller
+load('setup.mat')
 u = 0;
 
 load('trajectory_history.mat')
@@ -767,15 +774,20 @@ init_t = 0;
 final_t = 15;
 dt = 0.01;
 N = (final_t-init_t)/dt;
-t_span = init_t:dt:final_t-dt;
+t_span = [init_t:dt:final_t-dt];
 
 %%%%%%%%%%%%% INITIAL CONDITIONS %%%%%%%%%%%%%%%%
+x0 = zhistory1(end,:);
+x0(2) = -x0(2);
+x0(4) = -x0(4);
+x0(6) = -x0(6);
+x0(8) = -x0(8);
+x0 = x0';
+
 zhistory2 = [];
 uhistory = [];
 
-zhistory1_reversed = zeros(size(zhistory1));
-uhistory1_reversed = zeros(size(uhistory1));
-for i = 1:size(zhistory1_reversed,1)
+for i = 1:size(uhistory1,2)
     zhistory1_reversed(i,:) = zhistory1(end-i+1,:);
     uhistory1_reversed(i) = uhistory1(end-i+1);
 end
@@ -785,8 +797,6 @@ zhistory1_reversed(:,4) = -zhistory1_reversed(:,4);
 zhistory1_reversed(:,6) = -zhistory1_reversed(:,6);
 zhistory1_reversed(:,8) = -zhistory1_reversed(:,8);
 
-x0 = zhistory1_reversed(1,:)' + [0;0;0.1;0;0.1;0;0.1;0]; % adding an offset to initial conditions
-
 %%%%%%%%%%%%%%% LQR CONTROLLER  %%%%%%%%%%%%%%%%
 x1 = [0 0 -pi 0 -pi 0 -pi 0]';
 u1 = 0;
@@ -794,22 +804,26 @@ K1 = LQR_controller(x1,u1);
 
 %%%%%%%%%%%%%%%%%% ODE SOLVER %%%%%%%%%%%%%%%%%%%
 options = odeset('abstol',1e-9,'reltol',1e-9);
-% [t,z] = ode113(@three_dof_arm_cart_dyn_for_ODE_up, t_span, x0, options,u,l1,l2,l3,m1,m2,m3,M,g);
 
 xprec = x0;
+LQR_active = 0;
+
 for i =1:N
     clc;
-    fprintf('%d / %d',i,N);
-    [t1,z1] = ode45(@three_dof_arm_cart_dyn_for_ODE_up, [0 dt 0.05], xprec,options,u,param);
+    fprintf('Iteration n %d / %d',i,N);
+    [t1,z1] = ode45(@triple_pendulum_ODE, [0 dt 0.05], ...
+        xprec,options,u,param);
     zhistory2 = [zhistory2; z1(2,:)];
-    if i<= 900
+    
+    
+    if i<= 600 && LQR_active == 1
         u = -K1*(z1(2,:)-zhistory1_reversed(i,:))' + uhistory1_reversed(i);
     else
         u = uhistory1_reversed(i);
     end
     xprec = z1(2,:);
     if z1(2,1)>=4 || z1(2,1)<=-4
-        fprintf('ODE113 terminated, out of bounds');
+        fprintf('ODE45 terminated, out of bounds');
         break
     end
 end
